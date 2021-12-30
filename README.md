@@ -27,8 +27,6 @@ __Description__
 
 This will store the value of the given key, even if it already exists.
 
----
-
 ### `add`
 
 - **Supported:** No &#9940;
@@ -60,83 +58,47 @@ __Description__
 
 This will store the value of the given key, only if it does not already exist.
 
----
-
 ### `replace`
-
----
 
 ### `append`
 
----
-
 ### `prepend`
-
----
 
 ### `cas`
 
----
-
 ### `touch`
-
----
 
 ## Retrieve Commands 
 
 ### `get`
 
----
-
 ### `gets`
-
----
 
 ### `gat`
 
----
-
 ### `gats`
-
----
 
 ## Delete Commands
 
 ### `delete`
 
----
-
 ### `flush_all`
-
----
 
 ## Arithmetic Commands
 
 ### `incr`
 
----
-
 ### `decr`
-
----
 
 ## Miscellaneous Commands
 
 ### `quit`
 
----
-
 ### `version`
-
----
 
 ### `verbosity`
 
----
-
 ### `stats`
-
----
 
 ## Memcached Resources
 
