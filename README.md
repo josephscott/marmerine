@@ -1,5 +1,7 @@
 # Marmerine
 
+This is alternative implementation of Memcached.
+
 ## Storage Commands
 
 ### `set`
