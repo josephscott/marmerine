@@ -27,6 +27,8 @@ __Description__
 
 This will store the value of the given key, even if it already exists.
 
+---
+
 ### `add`
 
 - **Supported:** No &#9940;
