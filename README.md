@@ -54,6 +54,7 @@ $ printf "add thing 0 300 3\r\nabc\r\n" | nc localhost 11211
 STORED
 $ printf "add thing 0 300 3\r\nabc\r\n" | nc localhost 11211
 NOT_STORED
+```
 
 __Description__
 
