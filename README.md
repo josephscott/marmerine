@@ -1,5 +1,13 @@
 # Marmerine
 
+## Commands
+
+### Storage
+
+| Command | Supported | Format | Valid Response | Error |
+| ------- | --------- | ------ | -------- | ----- |
+| **set** | No | `set <key> <flags> <exptime> <length> [noreply]\r\n<data>\r\n` | `STORED\r\n` | `CLIENT_ERROR [error]\r\nERROR\r\n` |
+
 ## Memcached Resources
 
 - [Memcached](https://github.com/memcached/memcached), the original.
