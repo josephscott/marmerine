@@ -78,6 +78,65 @@ This will store the value of the given key, only if it does not already exist.
 
 ---
 
+### `touch`
+
+---
+
+## Retrieve Commands 
+
+### `get`
+
+---
+
+### `gets`
+
+---
+
+### `gat`
+
+---
+
+### `gats`
+
+---
+
+## Delete Commands
+
+### `delete`
+
+---
+
+### `flush_all`
+
+---
+
+## Arithmetic Commands
+
+### `incr`
+
+---
+
+### `decr`
+
+---
+
+## Miscellaneous Commands
+
+### `quit`
+
+---
+
+### `version`
+
+---
+
+### `verbosity`
+
+---
+
+### `stats`
+
+---
 
 ## Memcached Resources
 
