@@ -60,6 +60,24 @@ __Description__
 
 This will store the value of the given key, only if it does not already exist.
 
+---
+
+### `replace`
+
+---
+
+### `append`
+
+---
+
+### `prepend`
+
+---
+
+### `cas`
+
+---
+
 
 ## Memcached Resources
 
