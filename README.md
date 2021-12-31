@@ -124,6 +124,24 @@ Gets the value for the given key.  When the key does not exist, a response with 
 
 ### `delete`
 
+- **Supported:** No &#9940;
+- **Format:** `delete <key> [noreply]\r\n`
+- **Success Response:** `DELETED\r\n`
+- **Not Found Response:** `NOT_FOUND\r\n`
+
+__Examples__
+```shell
+$ printf "set thing 0 300 3\r\nabc\r\n" | nc localhost 11211
+STORED
+$ printf "delete thing\r\n" | nc localhost 11211
+DELETED
+```
+
+```shell
+$ printf "delete thing\r\n" | nc localhost 11211
+NOT_FOUND
+```
+
 ### `flush_all`
 
 ## Arithmetic Commands
