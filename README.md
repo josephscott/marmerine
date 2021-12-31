@@ -163,6 +163,9 @@ $ printf "flush_all\r\n" | nc localhost 11211
 OK
 ```
 
+__Description__
+Delete all of the stored keys.  There is no fail or error condition, it always returns `OK`.
+
 ## Arithmetic Commands
 
 ### `incr`
