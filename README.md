@@ -92,9 +92,27 @@ $ printf "get thing\r\n" | nc localhost 11211
 END
 ```
 
+```shell
+$ printf "set thing1 0 300 4\r\n1abc\r\n" | nc localhost 11211
+STORED
+$ printf "set thing2 0 300 4\r\n2abc\r\n" | nc localhost 11211
+STORED
+$ printf "set thing3 0 300 4\r\n3abc\r\n" | nc localhost 11211
+STORED
+$ printf "get thing thing1 thing2 thing3\r\n" | nc localhost 11211
+VALUE thing1 0 4
+1abc
+VALUE thing2 0 4
+2abc
+VALUE thing3 0 4
+3abc
+END
+```
+
+
 __Description__
 
-Gets the value for the given key.  When the key does not exist, a response with just `END\r\n` is given.
+Gets the value for the given key.  When the key does not exist, a response with just `END\r\n` is given.  When multiple keys are provided, only ones that exist will be returned.
 
 ### `gets`
 
