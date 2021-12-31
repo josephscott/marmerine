@@ -141,6 +141,9 @@ $ printf "delete thing\r\n" | nc localhost 11211
 NOT_FOUND
 ```
 
+__Description__
+Delete the given key.  If the key does not exist then `NOT_FOUND` is returned.
+
 ### `flush_all`
 
 - **Supported:** No &#9940;
