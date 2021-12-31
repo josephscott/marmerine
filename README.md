@@ -142,6 +142,7 @@ NOT_FOUND
 ```
 
 __Description__
+
 Delete the given key.  If the key does not exist then `NOT_FOUND` is returned.
 
 ### `flush_all`
@@ -164,6 +165,7 @@ OK
 ```
 
 __Description__
+
 Delete all of the stored keys.  There is no fail or error condition, it always returns `OK`.
 
 ## Arithmetic Commands
