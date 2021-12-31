@@ -72,6 +72,30 @@ This will store the value of the given key, only if it does not already exist.
 
 ### `get`
 
+- **Supported:** No &#9940;
+- **Format:** `get <key> [key2 key3 ... keyn]\r\n`
+- **Found Response:** `VALUE <key> <flags> <length>\r\n<data>\r\nEND\r\n`
+- **Not Found Response:** `END\r\n`
+
+__Examples__
+```shell
+$ printf "set thing 0 300 3\r\nabc\r\n" | nc localhost 11211
+STORED
+$ printf "get thing\r\n" | nc localhost 11211
+VALUE thing 0 3
+abc
+END
+```
+
+```shell
+$ printf "get thing\r\n" | nc localhost 11211
+END
+```
+
+__Description__
+
+Gets the value for the given key.  When the key does not exist, a response with just `END\r\n` is given.
+
 ### `gets`
 
 ### `gat`
