@@ -109,7 +109,6 @@ VALUE thing3 0 4
 END
 ```
 
-
 __Description__
 
 Gets the value for the given key.  When the key does not exist, a response with just `END\r\n` is given.  When multiple keys are provided, only ones that exist will be returned.
@@ -150,6 +149,13 @@ NOT_FOUND
 
 __Examples__
 ```shell
+$ printf "flush_all\r\n" | nc localhost 11211
+OK
+```
+
+```shell
+$ printf "flush_all\r\n" | nc localhost 11211
+OK
 $ printf "flush_all\r\n" | nc localhost 11211
 OK
 ```
