@@ -150,7 +150,7 @@ NOT_FOUND
 
 __Examples__
 ```shell
-$ printf "OK\r\n" | nc localhost 11211
+$ printf "flush_all\r\n" | nc localhost 11211
 OK
 ```
 
