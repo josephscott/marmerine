@@ -144,6 +144,16 @@ NOT_FOUND
 
 ### `flush_all`
 
+- **Supported:** No &#9940;
+- **Format:** `flush_all\r\n`
+- **Every Response:** `OK\r\n`
+
+__Examples__
+```shell
+$ printf "OK\r\n" | nc localhost 11211
+OK
+```
+
 ## Arithmetic Commands
 
 ### `incr`
