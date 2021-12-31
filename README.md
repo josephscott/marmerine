@@ -150,3 +150,4 @@ Gets the value for the given key.  When the key does not exist, a response with 
 - [Twemproxy Memcached Notes](https://github.com/twitter/twemproxy/blob/master/notes/memcache.md), helpful list of of supported Memcached comands in Twemproxy.
 - [MySQL Memcached TCP Text Protocol](https://docs.oracle.com/cd/E17952_01/mysql-5.6-en/ha-memcached-interfaces-protocol.html), commands outlined for the MySQL implementation.
 - [Memcached Cheat Sheet](https://lzone.de/cheat-sheet/memcached), a list of other Memcached resources and examples.
+- [libmemcached-awesome](https://github.com/awesomized/libmemcached), an updated version of the original [libmemcached](https://libmemcached.org/libMemcached.html).
