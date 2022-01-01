@@ -195,3 +195,4 @@ Delete all of the stored keys.  There is no fail or error condition, it always r
 - [libmemcached-awesome](https://github.com/awesomized/libmemcached), an updated version of the original [libmemcached](https://libmemcached.org/libMemcached.html).
 - [memc.rs](https://www.memc.rs/intro), Memcached clone written in Rust, compatible with the binary protocol.
 - [memtier_benchmark](https://github.com/RedisLabs/memtier_benchmark), a Memcached ( and Redis ) benchmarking tool.
+- [Expiration Times](https://www.php.net/manual/en/memcached.expiration.php), good description of how Memcached treats the expiration times.
