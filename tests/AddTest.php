@@ -22,3 +22,19 @@ test( 'add duplicate', function() {
 	$result = MC::$mc->add( $key, $value );
 	$this->assertEquals( false, $result );
 } );
+
+test( 'add exptime', function() {
+	$key = 'thing';
+	$value = 'abc';
+	$exptime = 2;
+
+	$result = MC::$mc->add( $key, $value, $exptime );
+	$this->assertEquals( true, $result );
+
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( $value, $result );
+
+	sleep( $exptime );
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( false, $result );
+} );
