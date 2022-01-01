@@ -1,6 +1,6 @@
 # Marmerine
 
-This is alternative implementation of Memcached.
+This is an alternate Memcached implementation.
 
 ## Storage Commands
 
