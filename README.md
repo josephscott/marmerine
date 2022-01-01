@@ -193,3 +193,4 @@ Delete all of the stored keys.  There is no fail or error condition, it always r
 - [MySQL Memcached TCP Text Protocol](https://docs.oracle.com/cd/E17952_01/mysql-5.6-en/ha-memcached-interfaces-protocol.html), commands outlined for the MySQL implementation.
 - [Memcached Cheat Sheet](https://lzone.de/cheat-sheet/memcached), a list of other Memcached resources and examples.
 - [libmemcached-awesome](https://github.com/awesomized/libmemcached), an updated version of the original [libmemcached](https://libmemcached.org/libMemcached.html).
+- [memc.rs](https://www.memc.rs/intro), Memcached clone written in Rust, compatible with the binary protocol.
