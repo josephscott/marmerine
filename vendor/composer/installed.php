@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '51233f769e8a3111cdf88b146dff03c8c2b9ade3',
+        'reference' => '0d4e5b23c22a6e39615052742e7e6d39b3dc25e5',
         'name' => 'josephscott/marmerine',
         'dev' => true,
     ),
@@ -43,7 +43,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '51233f769e8a3111cdf88b146dff03c8c2b9ade3',
+            'reference' => '0d4e5b23c22a6e39615052742e7e6d39b3dc25e5',
             'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
@@ -486,6 +486,15 @@
             'aliases' => array(),
             'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
             'dev_requirement' => true,
+        ),
+        'workerman/workerman' => array(
+            'pretty_version' => 'v4.0.26',
+            'version' => '4.0.26.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../workerman/workerman',
+            'aliases' => array(),
+            'reference' => '27573e9f985f9ec0665b1f9924308d359bd0fdaa',
+            'dev_requirement' => false,
         ),
     ),
 );
