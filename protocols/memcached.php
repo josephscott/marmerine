@@ -1,0 +1,18 @@
+<?php
+namespace Protocols;
+
+use Workerman\Connection\ConnectionInterface;
+
+class Memcached {
+	public static function input( string $buffer, ConnectionInterface $conn ) {
+
+	}
+
+	public static function decode( string $buffer, ConnectionInterface $conn ) {
+
+	}
+
+	public static function encode( string $data, ConnectionInterface $conn ) {
+
+	}
+}
