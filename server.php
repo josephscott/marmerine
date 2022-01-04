@@ -11,6 +11,12 @@ require_once __DIR__ . '/storage/sqlite.php';
 $server = new Worker( 'Memcached://127.0.0.1:11211' );
 $server->count = 4;
 
-$server->onMessage( function ( TcpConnection $conn, $data ) {
+$server->onConnect = function ( TcpConnection $conn ) {
+};
+
+$server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 };
+
+$server->onClose = function ( TcpConnection $conn ) {
+}
