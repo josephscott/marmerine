@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 
 use Workerman\Connection\ConnectionInterface;
 
-class Memcached {
+class Memcached_Text {
 	public static function input( string $buffer, ConnectionInterface $conn ) {
 
 	}
