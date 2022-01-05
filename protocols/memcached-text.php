@@ -26,6 +26,10 @@ class Memcached_Text {
 				self::$parts[0] === 'add'
 				|| self::$parts[0] === 'set'
 			) {
+				self::$parts[2] = (int) self::$parts[2];
+				self::$parts[3] = (int) self::$parts[3];
+				self::$parts[4] = (int) self::$parts[4];
+
 				$full_size = $cmd_end + 2 + self::$parts[4] + 2;
 				if ( \strlen( $buffer ) !== $full_size ) {
 					// Need to read more input
@@ -38,7 +42,21 @@ class Memcached_Text {
 	}
 
 	public static function decode( string $buffer, ConnectionInterface $conn ) {
+		$data = new \StdClass();
+		$data->command = self::$parts[0];
 
+		switch( $data->command ) {
+		case 'add':
+		case 'set':
+			$data->key = self::$parts[1];
+			$data->value = \substr(
+				$buffer,
+				self::$parts['cmd_end'] + 2,
+				self::$parts[4]
+			);
+		}
+
+		return $data;
 	}
 
 	public static function encode( string $data, ConnectionInterface $conn ) {
