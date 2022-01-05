@@ -15,7 +15,25 @@ $server->onConnect = function ( TcpConnection $conn ) {
 };
 
 $server->onMessage = function ( TcpConnection $conn, object $data ) {
+	$storage = new Memcached_Storage();
 
+	switch ( $data->command ) {
+		case 'add':
+		case 'set':
+			$status = $storage->{$data->command}(
+				key: $data->key,
+				value: $data->value,
+				exptime: 0
+			);
+
+			if ( $status ) {
+				$conn->send( 'STORED' );
+			} else {
+				$conn->send( 'NOT_STORED' );
+			}
+
+			return;
+	}
 };
 
 $server->onClose = function ( TcpConnection $conn ) {
