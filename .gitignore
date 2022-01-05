@@ -1,2 +1,5 @@
 # PHPUnit / Pest
 .phpunit.result.cache
+
+# Workerman Log
+vendor/workerman/workerman.log
