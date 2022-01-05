@@ -1,6 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
+namespace Protocols;
+
 use Workerman\Connection\ConnectionInterface;
 
 class Memcached_Text {
