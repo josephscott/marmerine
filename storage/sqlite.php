@@ -9,9 +9,9 @@ class Memcached_Storage {
 			self::$db = new SQLite3( dirname( __DIR__ ) . '/data/storage.db' );
 		}
 
-		$table_check = self::$db->query( 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"' );
-		if ( $table_check === false ) {
-			$table = <<<SQL
+		$table_check = self::$db->querySingle( 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"' );
+		if ( $table_check === null ) {
+			$sql = <<<SQL
 				CREATE TABLE IF NOT EXISTS 'storage' (
 					'id' INTEGER,
 					'key' TEXT NOT NULL UNIQUE,
@@ -20,23 +20,20 @@ class Memcached_Storage {
 					'value' BLOB NOT NULL,
 					PRIMARY KEY( 'id' AUTOINCREMENT )
 				);
-SQL;
 
-			$index = <<<SQL
 				CREATE INDEX 'idx_added_ts' ON 'storage' (
 					'added_ts' DESC
 				);
 SQL;
 
-			$create = self::$db->query( $table );
-			$create = self::$db->query( $index );
+			$create = self::$db->exec( $sql );
 		}
 	}
 
 	public function add( string $key, string|int $value, int $exptime ): bool {
 		$query = self::$db->prepare( 'SELECT id FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
-		$id = $query->execute();
+		$id = $query->execute()->fetchArray( SQLITE3_ASSOC );
 
 		if ( $id !== false ) {
 			return false;
