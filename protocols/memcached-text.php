@@ -60,6 +60,6 @@ class Memcached_Text {
 	}
 
 	public static function encode( string $data, ConnectionInterface $conn ) {
-
+		return $data . "\r\n";
 	}
 }
