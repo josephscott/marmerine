@@ -20,3 +20,5 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 $server->onClose = function ( TcpConnection $conn ) {
 };
+
+Worker::runAll();
