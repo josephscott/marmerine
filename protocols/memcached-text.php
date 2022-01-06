@@ -49,6 +49,8 @@ class Memcached_Text {
 		case 'add':
 		case 'set':
 			$data->key = self::$parts[1];
+			$data->flags = self::$parts[2];
+			$data->exptime = self::$parts[3];
 			$data->value = \substr(
 				$buffer,
 				self::$parts['cmd_end'] + 2,
