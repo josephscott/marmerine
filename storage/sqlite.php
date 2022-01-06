@@ -13,12 +13,12 @@ class Memcached_Storage {
 		if ( $table_check === null ) {
 			$sql = <<<SQL
 				CREATE TABLE IF NOT EXISTS 'storage' (
-					'id' INTEGER,
 					'key' TEXT NOT NULL UNIQUE,
 					'exptime' INTEGER NOT NULL,
+					'flags' INTEGER NOT NULL,
 					'added_ts' INTEGER NOT NULL,
 					'value' BLOB NOT NULL,
-					PRIMARY KEY( 'id' AUTOINCREMENT )
+					PRIMARY KEY( 'key' )
 				);
 
 				CREATE INDEX 'idx_added_ts' ON 'storage' (
@@ -30,18 +30,19 @@ SQL;
 		}
 	}
 
-	public function add( string $key, string|int $value, int $exptime ): bool {
-		$query = self::$db->prepare( 'SELECT id FROM storage WHERE "key" = :key' );
+	public function add( string $key, int $flags, int $exptime, string|int $value ): bool {
+		$query = self::$db->prepare( 'SELECT key FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
-		$id = $query->execute()->fetchArray( SQLITE3_ASSOC );
+		$row = $query->execute()->fetchArray( SQLITE3_ASSOC );
 
-		if ( $id !== false ) {
+		if ( $row !== false ) {
 			return false;
 		}
 
-		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "added_ts", "value" ) VALUES( :key, :exptime, :added_ts, :value )' );
+		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "value" ) VALUES( :key, :exptime, :flags, :added_ts, :value )' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
 		$query->bindValue( ':exptime', $exptime + time(), SQLITE3_INTEGER );
+		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
 		$query->bindValue( ':added_ts', time(), SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		$result = $query->execute();
