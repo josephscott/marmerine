@@ -52,4 +52,15 @@ SQL;
 
 		return false;
 	}
+
+	public function get( string $key ): mixed {
+		$query = self::$db->prepare( 'SELECT * FROM storage WHERE "key" = :key' );
+		$query->bindValue( ':key', $key, SQLITE3_TEXT );
+		$row = $query->execute()->fetchArray( SQLITE3_ASSOC );
+		if ( $row === false ) {
+			return false;
+		}
+
+		return $row['value'];
+	}
 } 

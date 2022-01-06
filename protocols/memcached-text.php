@@ -54,6 +54,8 @@ class Memcached_Text {
 				self::$parts['cmd_end'] + 2,
 				self::$parts[4]
 			);
+		case 'get':
+			$data->key = self::$parts[1];
 		}
 
 		return $data;
