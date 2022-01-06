@@ -36,10 +36,10 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'get':
-			$value = $storage->get( key: $data->key );
-			if ( $value !== false ) {
-				$conn->send( 'VALUE ' . $data->key . ' 0 ' . strlen( $value ) );
-				$conn->send( $value );
+			$results = $storage->get( key: $data->key );
+			if ( $results !== false ) {
+				$conn->send( 'VALUE ' . $results['key'] . ' ' . $results['flags'] . ' ' . strlen( $results['value'] ) );
+				$conn->send( $results['value'] );
 			}
 			$conn->send( 'END' );
 
