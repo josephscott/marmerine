@@ -22,8 +22,9 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 		case 'set':
 			$status = $storage->{$data->command}(
 				key: $data->key,
+				flags: $data->flags,
+				exptime: $data->exptime,
 				value: $data->value,
-				exptime: 0
 			);
 
 			if ( $status ) {
