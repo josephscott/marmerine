@@ -62,6 +62,6 @@ SQL;
 			return false;
 		}
 
-		return $row['value'];
+		return $row;
 	}
 } 
