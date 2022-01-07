@@ -37,7 +37,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 		case 'get':
 			$results = $storage->get( key: $data->key );
-			if ( $results !== false ) {
+			if ( is_array( $results ) ) {
 				$conn->send( 'VALUE ' . $results['key'] . ' ' . $results['flags'] . ' ' . strlen( $results['value'] ) );
 				$conn->send( $results['value'] );
 			}
@@ -47,6 +47,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 		case 'flush_all':
 			$storage->flush_all();
+			$conn->send( 'OK' );
 			return;
 
 		case 'quit':
