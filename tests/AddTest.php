@@ -34,7 +34,7 @@ test( 'add exptime', function() {
 	$result = MC::$mc->get( $key );
 	$this->assertEquals( $value, $result );
 
-	sleep( $exptime );
+	sleep( $exptime + 1 );
 	$result = MC::$mc->get( $key );
 	$this->assertEquals( false, $result );
 } );
