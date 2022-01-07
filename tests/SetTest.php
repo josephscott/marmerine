@@ -5,7 +5,7 @@ test( 'set', function() {
 	$key = 'thing';
 	$value = 'abc';
 
-	$result = MC::$mc->add( $key, $value );
+	$result = MC::$mc->set( $key, $value );
 	$this->assertEquals( true, $result );
 
 	$result = MC::$mc->get( $key );
@@ -16,10 +16,10 @@ test( 'set duplicate', function() {
 	$key = 'thing';
 	$value = 'abc';
 
-	$result = MC::$mc->add( $key, $value );
+	$result = MC::$mc->set( $key, $value );
 	$this->assertEquals( true, $result );
 
-	$result = MC::$mc->add( $key, $value );
+	$result = MC::$mc->set( $key, $value );
 	$this->assertEquals( false, $result );
 } );
 
@@ -28,7 +28,7 @@ test( 'set exptime', function() {
 	$value = 'abc';
 	$exptime = 2;
 
-	$result = MC::$mc->add( $key, $value, $exptime );
+	$result = MC::$mc->set( $key, $value, $exptime );
 	$this->assertEquals( true, $result );
 
 	$result = MC::$mc->get( $key );
