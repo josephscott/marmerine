@@ -44,6 +44,14 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			$conn->send( 'END' );
 
 			return;
+
+		case 'flush_all':
+			$storage->flush_all();
+			return;
+
+		case 'quit':
+			$conn->close();
+			return;
 	}
 };
 

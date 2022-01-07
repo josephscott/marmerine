@@ -7,3 +7,5 @@
 - Command support for : add
 - Command support for : set
 - Command support for : get
+- Command support for : quit
+- Command support for : flush_all

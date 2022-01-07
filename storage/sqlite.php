@@ -54,6 +54,11 @@ SQL;
 		return false;
 	}
 
+	public function flush_all(): bool {
+		$result = self::$db->exec( 'DELETE FROM storage' );
+		return $result;
+	}
+
 	public function get( string $key ): mixed {
 		$query = self::$db->prepare( 'SELECT * FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
