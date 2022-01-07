@@ -30,6 +30,18 @@ SQL;
 		}
 	}
 
+	private function _remove_key( string $key ): bool {
+		$query = self::$db->prepare( 'DELETE FROM storage WHERE "key" = :key' );
+		$query->bindValue( ':key', $key, SQLITE3_TEXT );
+		$result = $query->execute();
+
+		if ( $result === false ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public function add( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$query = self::$db->prepare( 'SELECT key FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
@@ -64,6 +76,12 @@ SQL;
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
 		$row = $query->execute()->fetchArray( SQLITE3_ASSOC );
 		if ( $row === false ) {
+			return false;
+		}
+
+		// Catch expired keys
+		if ( time() > $row['exptime'] ) {
+			$this->_remove_key( $row['key'] );
 			return false;
 		}
 
