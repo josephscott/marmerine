@@ -20,7 +20,7 @@ test( 'set duplicate', function() {
 	$this->assertEquals( true, $result );
 
 	$result = MC::$mc->set( $key, $value );
-	$this->assertEquals( false, $result );
+	$this->assertEquals( true, $result );
 } );
 
 test( 'set exptime', function() {
