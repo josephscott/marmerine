@@ -23,6 +23,24 @@ test( 'set duplicate', function() {
 	$this->assertEquals( true, $result );
 } );
 
+test( 'set new value', function() {
+	$key = 'thing';
+	$value = 'abc';
+
+	$result = MC::$mc->set( $key, $value );
+	$this->assertEquals( true, $result );
+
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( $value, $result );
+
+	$value .= '-new';
+	$result = MC::$mc->set( $key, $value );
+	$this->assertEquals( true, $result );
+
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( $value, $result );
+} );
+
 test( 'set exptime', function() {
 	$key = 'thing';
 	$value = 'abc';
