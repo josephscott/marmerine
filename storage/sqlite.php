@@ -51,7 +51,7 @@ SQL;
 			return false;
 		}
 
-		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "value" ) VALUES( :key, :exptime, :flags, :added_ts, :value )' );
+		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "value" ) VALUES ( :key, :exptime, :flags, :added_ts, :value )' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
 		$query->bindValue( ':exptime', $exptime + time(), SQLITE3_INTEGER );
 		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
@@ -87,4 +87,21 @@ SQL;
 
 		return $row;
 	}
+
+	public function set( string $key, int $flags, int $exptime, string|int $value ): bool {
+		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "value" ) VALUES ( :key, :exptime, :flags, :added_ts, :value ) ON CONFLICT("key") DO UPDATE SET "exptime" = :exptime, "flags" = :flags, "added_ts" = :added_ts, "value" = :value' );
+		$query->bindValue( ':key', $key, SQLITE3_TEXT );
+		$query->bindValue( ':exptime', $exptime + time(), SQLITE3_INTEGER );
+		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
+		$query->bindValue( ':added_ts', time(), SQLITE3_INTEGER );
+		$query->bindValue( ':value', $value, SQLITE3_BLOB );
+		$result = $query->execute();
+
+		if ( $result !== false ) {
+			return true;
+		}
+
+		return false;
+	}
+
 } 
