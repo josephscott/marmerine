@@ -27,6 +27,10 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 				value: $data->value,
 			);
 
+			if ( $data->noreply ) {
+				return;
+			}
+
 			if ( $status ) {
 				$conn->send( 'STORED' );
 			} else {

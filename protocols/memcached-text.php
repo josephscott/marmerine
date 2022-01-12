@@ -56,6 +56,15 @@ class Memcached_Text {
 				self::$parts['cmd_end'] + 2,
 				self::$parts[4]
 			);
+
+			$data->noreply = false;
+			if (
+				isset( self::$parts[5] )
+				&& self::$parts[5] === 'noreply'
+			) {
+				$data->noreply = true;
+			}
+
 			break;
 		case 'get':
 			$data->key = self::$parts[1];
