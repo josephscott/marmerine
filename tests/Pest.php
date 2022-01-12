@@ -10,6 +10,7 @@ class MC {
 		if ( self::$mc === false ) {
 			self::$mc = new Memcached();
 			self::$mc->addServer( '127.0.0.1', 11211 );
+			self::$mc->flush();
 		}
 	}
 }
