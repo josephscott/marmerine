@@ -6,7 +6,7 @@ This is an alternate Memcached implementation.
 
 ### `set`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `set <key> <flags> <exptime> <length> [noreply]\r\n<data>\r\n`
 - **Success Response:** `STORED\r\n`
 - **Error Response:** `CLIENT_ERROR [error]\r\nERROR\r\n`
@@ -29,7 +29,7 @@ This will store the value of the given key, even if it already exists.
 
 ### `add`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `add <key> <flags> <exptime> <length> [noreply]\r\n<data>\r\n`
 - **Success Response:** `STORED\r\n`
 - **Failure Response:** `NOT_STORED\r\n`
