@@ -178,6 +178,19 @@ Delete all of the stored keys.  There is no fail or error condition, it always r
 
 ### `quit`
 
+- **Supported:** Yes &#9989;
+- **Format:** `quit\r\n`
+- **Every Response:** ( None )
+
+__Examples__
+```shell
+$ printf "quit\r\n" | nc localhost 11211
+```
+
+__Description__
+
+This closes the connection to the server.  It does not return anything.
+
 ### `version`
 
 ### `verbosity`
