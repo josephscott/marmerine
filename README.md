@@ -147,7 +147,7 @@ Delete the given key.  If the key does not exist then `NOT_FOUND` is returned.
 
 ### `flush_all`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `flush_all\r\n`
 - **Every Response:** `OK\r\n`
 
