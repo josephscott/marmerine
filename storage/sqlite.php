@@ -88,6 +88,7 @@ SQL;
 		while ( $row = $result->fetchArray( SQLITE3_ASSOC ) ) {
 			if ( time() > $row['exptime'] ) {
 				$this->_remove_key( $row['key'] );
+				continue;
 			}
 
 			$data[] = $row;
