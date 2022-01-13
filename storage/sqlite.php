@@ -71,21 +71,29 @@ SQL;
 		return $result;
 	}
 
-	public function get( string $key ): mixed {
-		$query = self::$db->prepare( 'SELECT * FROM storage WHERE "key" = :key' );
-		$query->bindValue( ':key', $key, SQLITE3_TEXT );
-		$row = $query->execute()->fetchArray( SQLITE3_ASSOC );
-		if ( $row === false ) {
-			return false;
+	public function get( array $keys ): mixed {
+		$sql = 'SELECT * FROM storage WHERE "key" IN ( ';
+		foreach ( $keys as $i => $k ) {
+			$sql .= ":key{$i}, ";
+		}
+		$sql = substr( $sql, 0, -2 ) . ' )';
+
+		$query = self::$db->prepare( $sql );
+		foreach ( $keys as $i => $k ) {
+			$query->bindValue( ":key{$i}", $k, SQLITE3_TEXT );
 		}
 
-		// Catch expired keys
-		if ( time() > $row['exptime'] ) {
-			$this->_remove_key( $row['key'] );
-			return false;
+		$result = $query->execute();
+		$data = [];
+		while ( $row = $result->fetchArray( SQLITE3_ASSOC ) ) {
+			if ( time() > $row['exptime'] ) {
+				$this->_remove_key( $row['key'] );
+			}
+
+			$data[] = $row;
 		}
 
-		return $row;
+		return $data;
 	}
 
 	public function set( string $key, int $flags, int $exptime, string|int $value ): bool {
