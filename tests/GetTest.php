@@ -41,3 +41,20 @@ test( 'get exptime', function() {
 	$result = MC::$mc->get( $key );
 	$this->assertEquals( false, $result );
 } );
+
+test( 'get multiple keys', function() {
+	$data = [
+		'thing1' => 'abc',
+		'thing2' => 'xyz',
+		'thing3' => 123,
+		'thing4' => 'hello world'
+	];
+
+	foreach ( $data as $k => $v ) {
+		$result = MC::$mc->add( $k, $v );
+		$this->assertEquals( true, $result );
+	}
+
+	$result = MC::$mc->getMulti( array_keys( $data ) );
+	$this->assertEquals( $data, $result );
+} );
