@@ -72,7 +72,7 @@ This will store the value of the given key, only if it does not already exist.
 
 ### `get`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `get <key> [key2 key3 ... keyn]\r\n`
 - **Found Response:** `VALUE <key> <flags> <length>\r\n<data>\r\nEND\r\n`
 - **Not Found Response:** `END\r\n`
