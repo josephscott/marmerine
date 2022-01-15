@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 use Workerman\Worker;
 use Workerman\Connection\TcpConnection;
+use Workerman\Timer;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/protocols/memcached-text.php';
@@ -50,7 +51,18 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'flush_all':
-			$storage->flush_all();
+			if ( $data->delay > 0 ) {
+				$timer_id = Timer::add(
+					$data->delay,
+					function () use ( &$timer_id, $storage ) {
+						$storage->flush_all();
+						Timer::del( $timer_id );
+					}
+				);
+			} else {
+				$storage->flush_all();
+			}
+
 			if ( !$data->noreply ) {
 				$conn->send( 'OK' );
 			}
