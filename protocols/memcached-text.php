@@ -57,14 +57,6 @@ class Memcached_Text {
 				self::$parts[4]
 			);
 
-			$data->noreply = false;
-			if (
-				isset( self::$parts[5] )
-				&& self::$parts[5] === 'noreply'
-			) {
-				$data->noreply = true;
-			}
-
 			break;
 		case 'get':
 			$multi = array_slice( self::$parts, 1, null, true );
@@ -72,6 +64,12 @@ class Memcached_Text {
 				$data->keys[] = $k;
 			}
 			break;
+		}
+
+		$data->noreply = false;
+		$last = end( self::$parts );
+		if ( is_string( $last ) && $last === 'noreply' ) {
+			$data->noreply = true;
 		}
 
 		return $data;
