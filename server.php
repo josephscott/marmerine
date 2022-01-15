@@ -51,7 +51,9 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 		case 'flush_all':
 			$storage->flush_all();
-			$conn->send( 'OK' );
+			if ( !$data->noreply ) {
+				$conn->send( 'OK' );
+			}
 			return;
 
 		case 'quit':
