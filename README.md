@@ -148,7 +148,7 @@ Delete the given key.  If the key does not exist then `NOT_FOUND` is returned.
 ### `flush_all`
 
 - **Supported:** Yes &#9989;
-- **Format:** `flush_all\r\n`
+- **Format:** `flush_all [delay] [noreply]\r\n`
 - **Every Response:** `OK\r\n`
 
 __Examples__
