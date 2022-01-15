@@ -58,6 +58,12 @@ class Memcached_Text {
 			);
 
 			break;
+		case 'flush_all':
+			$data->delay = 0;
+			if ( !empty( self::$parts[1] ) && is_numeric( self::$parts[1] ) ) {
+				$data->delay = self::$parts[1];
+			}
+			break;
 		case 'get':
 			$multi = array_slice( self::$parts, 1, null, true );
 			foreach ( $multi as $k ) {
@@ -67,7 +73,7 @@ class Memcached_Text {
 		}
 
 		$data->noreply = false;
-		$last = end( self::$parts );
+		$last = end( self::$parts ); reset( self::$parts );
 		if ( is_string( $last ) && $last === 'noreply' ) {
 			$data->noreply = true;
 		}
