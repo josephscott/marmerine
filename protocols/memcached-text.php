@@ -67,6 +67,7 @@ class Memcached_Text {
 			}
 			break;
 		case 'get':
+			unset( self::$parts['cmd_end'] );
 			$multi = array_slice( self::$parts, 1, null, true );
 			foreach ( $multi as $k ) {
 				$data->keys[] = $k;
