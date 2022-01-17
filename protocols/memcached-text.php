@@ -31,7 +31,9 @@ class Memcached_Text {
 				self::$parts[4] = (int) self::$parts[4];
 
 				$full_size = $cmd_end + 2 + self::$parts[4] + 2;
-				if ( \strlen( $buffer ) !== $full_size ) {
+				if ( \strlen( $buffer ) >= $full_size ) {
+					return $full_size;
+				} else {
 					// Need to read more input
 					return 0;
 				}
