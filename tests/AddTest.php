@@ -38,3 +38,18 @@ test( 'add exptime', function() {
 	$result = MC::$mc->get( $key );
 	$this->assertEquals( false, $result );
 } );
+
+test( 'add noreply', function() {
+	$key = 'thing';
+	$value = 'abc';
+
+	MC::$mc->setOption( Memcached::OPT_NOREPLY, true );
+
+	$result = MC::$mc->add( $key, $value );
+	$this->assertEquals( true, $result );
+
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( $value, $result );
+
+	MC::$mc->setOption( Memcached::OPT_NOREPLY, false );
+} );
