@@ -61,6 +61,9 @@ class Memcached_Text {
 			);
 
 			break;
+		case 'delete':
+			$data->key = self::$parts[1];
+			break;
 		case 'flush_all':
 			$data->delay = 0;
 			if ( !empty( self::$parts[1] ) && is_numeric( self::$parts[1] ) ) {
