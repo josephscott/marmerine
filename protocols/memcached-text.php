@@ -7,6 +7,7 @@ use Workerman\Connection\ConnectionInterface;
 
 class Memcached_Text {
 	protected static $parts = null;
+	protected static $cmd_end = null;
 
 	public static function input( string $buffer, ConnectionInterface $conn ) {
 		// Look for the text line command
@@ -19,7 +20,7 @@ class Memcached_Text {
 
 		// Break out the command pieces
 		self::$parts = \explode( ' ', \substr( $buffer, 0, $cmd_end ) );
-		self::$parts['cmd_end'] = $cmd_end;
+		self::$cmd_end = $cmd_end;
 
 		if ( !empty( self::$parts[0] ) ) {
 			if (
@@ -30,7 +31,7 @@ class Memcached_Text {
 				self::$parts[3] = (int) self::$parts[3];
 				self::$parts[4] = (int) self::$parts[4];
 
-				$full_size = $cmd_end + 2 + self::$parts[4] + 2;
+				$full_size = self::$cmd_end + 2 + self::$parts[4] + 2;
 				if ( \strlen( $buffer ) >= $full_size ) {
 					return $full_size;
 				} else {
@@ -55,7 +56,7 @@ class Memcached_Text {
 			$data->exptime = self::$parts[3];
 			$data->value = \substr(
 				$buffer,
-				self::$parts['cmd_end'] + 2,
+				self::$cmd_end + 2,
 				self::$parts[4]
 			);
 
