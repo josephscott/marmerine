@@ -68,11 +68,11 @@ SQL;
 
 	public function delete( string $key ) {
 		$results = $this->get( [ $key ] );
-		if ( count( $result ) === 0 ) {
+		if ( count( $results ) === 0 ) {
 			return false;
 		}
 
-		$this->_remove_key( $row['key'] );
+		$this->_remove_key( $key );
 		return true;
 	}
 
