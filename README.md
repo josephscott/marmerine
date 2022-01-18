@@ -123,7 +123,7 @@ Gets the value for the given key.  When the key does not exist, a response with 
 
 ### `delete`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `delete <key> [noreply]\r\n`
 - **Success Response:** `DELETED\r\n`
 - **Not Found Response:** `NOT_FOUND\r\n`
