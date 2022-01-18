@@ -9,3 +9,4 @@
 - Command support for : get
 - Command support for : quit
 - Command support for : flush_all
+- Command support for : delete
