@@ -40,6 +40,21 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 			return;
 
+		case 'delete':
+			$status = $storage->delete( key: $data->key );
+
+			if ( $data->noreply ) {
+				return;
+			}
+
+			if ( $status ) {
+				$conn->send( 'DELETED' );
+			} else {
+				$conn->send( 'NOT_FOUND' );
+			}
+
+			return;
+
 		case 'get':
 			$results = $storage->get( keys: $data->keys );
 			foreach ( $results as $r ) {
