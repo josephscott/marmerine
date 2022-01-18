@@ -66,6 +66,16 @@ SQL;
 		return false;
 	}
 
+	public function delete( string $key ) {
+		$results = $this->get( [ $key ] );
+		if ( count( $result ) === 0 ) {
+			return false;
+		}
+
+		$this->_remove_key( $row['key'] );
+		return true;
+	}
+
 	public function flush_all(): bool {
 		$result = self::$db->exec( 'DELETE FROM storage' );
 		return $result;
