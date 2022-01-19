@@ -18,3 +18,8 @@ test( 'delete', function() {
 	$this->assertEquals( false, $result );
 
 } );
+
+test( 'delete does not exist', function() {
+	$result = MC::$mc->delete( 'thing' );
+	$this->assertEquals( false, $result );
+} );
