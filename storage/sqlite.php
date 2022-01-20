@@ -4,9 +4,9 @@ declare( strict_types = 1 );
 class Memcached_Storage {
 	protected static $db = false;
 
-	public function __construct() {
+	public function __construct( string $db ) {
 		if ( self::$db === false ) {
-			self::$db = new SQLite3( dirname( __DIR__ ) . '/data/storage.db' );
+			self::$db = new SQLite3( $db );
 		}
 
 		$table_check = self::$db->querySingle( 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"' );

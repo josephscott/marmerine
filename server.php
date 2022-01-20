@@ -16,7 +16,8 @@ $server->onConnect = function ( TcpConnection $conn ) {
 };
 
 $server->onMessage = function ( TcpConnection $conn, object $data ) {
-	$storage = new Memcached_Storage();
+	$storage = new Memcached_Storage( ':memory:' );
+#	$storage = new Memcached_Storage( __DIR__ . '/data/storage.db' );
 
 	switch ( $data->command ) {
 		case 'add':
