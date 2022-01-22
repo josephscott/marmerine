@@ -193,6 +193,20 @@ This closes the connection to the server.  It does not return anything.
 
 ### `version`
 
+- **Supported:** No &#9940;
+- **Format:** `version\r\n`
+- **Every Response:** `VERSION <version>\r\n`
+
+__Examples__
+```shell
+$ printf "version\r\n" | nc localhost 11211
+VERSION 1.6.12
+```
+
+__Description__
+
+Get the version number from the server.
+
 ### `verbosity`
 
 ### `stats`
