@@ -2,6 +2,12 @@
 
 This is an alternate Memcached implementation.
 
+```
+git clone https://github.com/josephscott/marmerine.git
+composer install
+php server.php start
+```
+
 ## Storage Commands
 
 ### `set`
