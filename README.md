@@ -199,7 +199,7 @@ This closes the connection to the server.  It does not return anything.
 
 ### `version`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `version\r\n`
 - **Every Response:** `VERSION <version>\r\n`
 
