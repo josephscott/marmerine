@@ -16,6 +16,14 @@ test( 'replace', function() {
 	$this->assertEquals( $value, $result );
 } );
 
+test( 'replace without add', function() {
+	$key = 'thing';
+	$value = 'abc';
+
+	$result = MC::$mc->replace( $key, $value );
+	$this->assertEquals( false, $result );
+} );
+
 test( 'replace exptime', function() {
 	$key = 'thing';
 	$value = 'abc';
