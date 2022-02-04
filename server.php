@@ -86,6 +86,10 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 		case 'quit':
 			$conn->close();
 			return;
+
+		case 'version':
+			$conn->send( '0.0.1' );
+			return;
 	}
 };
 
