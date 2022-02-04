@@ -2,8 +2,8 @@
 
 ## ????
 - Rename the test files
-- New test: version command
 - Implement the version command
+- New test: version command
 - New test: replace command
 
 ## 0.0.1 - 2022-02-01
