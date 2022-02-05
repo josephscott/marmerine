@@ -107,6 +107,16 @@ SQL;
 		return $data;
 	}
 
+	public function replace( string $key, int $flags, int $exptime, string|int $value ): bool {
+		$current = $this->get( [ $key ] );
+		if ( count( $current ) === 0 ) {
+			return false;
+		}
+
+		$result = $this->set( $key, $flags, $exptime, $value );
+		return $result;
+	}
+
 	public function set( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "value" ) VALUES ( :key, :exptime, :flags, :added_ts, :value ) ON CONFLICT("key") DO UPDATE SET "exptime" = :exptime, "flags" = :flags, "added_ts" = :added_ts, "value" = :value' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
@@ -122,5 +132,4 @@ SQL;
 
 		return false;
 	}
-
 } 
