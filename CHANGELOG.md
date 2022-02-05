@@ -3,6 +3,7 @@
 ## ????
 - Rename the test files
 - Implement the version command
+- Implement the replace command
 - New test: version command
 - New test: replace command
 
