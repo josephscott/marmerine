@@ -66,7 +66,7 @@ This will store the value of the given key, only if it does not already exist.
 
 ### `replace`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `replace <key> <flags> <exptime> <length> [noreply]\r\n<data>\r\n`
 - **Success Response:** `STORED\r\n`
 - **Error Response:** `NOT_STORED\r\n`
