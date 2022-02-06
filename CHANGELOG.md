@@ -4,8 +4,10 @@
 - Rename the test files
 - Implement the version command
 - Implement the replace command
+- Implement the append command
 - New test: version command
 - New test: replace command
+- New test: append command
 
 ## 0.0.1 - 2022-02-01
 - Start protocol information details
