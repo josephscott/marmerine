@@ -66,6 +66,16 @@ SQL;
 		return false;
 	}
 
+	public function append( string $key, int $flags, int $exptime, string|int $value ): bool {
+		$results = $this->get( [ $key ] );
+		if ( count( $results ) === 0 ) {
+			return false;
+		}
+
+		$results = $this->set( $key, $flags, $exptime, "{$results[0]['value']}$value" );
+		return $results;
+	}
+
 	public function delete( string $key ) {
 		$results = $this->get( [ $key ] );
 		if ( count( $results ) === 0 ) {
