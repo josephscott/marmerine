@@ -22,6 +22,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 		case 'add':
 		case 'set':
 		case 'replace':
+		case 'append':
 			$status = $storage->{$data->command}(
 				key: $data->key,
 				flags: $data->flags,
