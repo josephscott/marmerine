@@ -94,7 +94,7 @@ This will replace the value of the given key.
 
 ### `append`
 
-- **Support:** No &#9940;
+- **Support:** Yes &#9989;
 - **Format:** `append <key> <flags> <exptime> <length> [noreply]\r\n<data>\r\n`
 - **Success Response:** `STORED\r\n`
 - **Error Response:** `NOT_STORED\r\n`
