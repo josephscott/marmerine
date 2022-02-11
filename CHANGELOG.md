@@ -8,6 +8,7 @@
 - New test: version command
 - New test: replace command
 - New test: append command
+- New test: prepend command
 
 ## 0.0.1 - 2022-02-01
 - Start protocol information details
