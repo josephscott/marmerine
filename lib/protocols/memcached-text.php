@@ -28,6 +28,7 @@ class Memcached_Text {
 				|| self::$parts[0] === 'set'
 				|| self::$parts[0] === 'replace'
 				|| self::$parts[0] === 'append'
+				|| self::$parts[0] === 'prepend'
 			) {
 				self::$parts[2] = (int) self::$parts[2];
 				self::$parts[3] = (int) self::$parts[3];
@@ -55,6 +56,7 @@ class Memcached_Text {
 		case 'set':
 		case 'replace':
 		case 'append':
+		case 'prepend':
 			$data->key = self::$parts[1];
 			$data->flags = self::$parts[2];
 			$data->exptime = self::$parts[3];

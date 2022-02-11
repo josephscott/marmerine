@@ -117,6 +117,16 @@ SQL;
 		return $data;
 	}
 
+	public function prepend( string $key, int $flags, int $exptime, string|int $value ): bool {
+		$results = $this->get( [ $key ] );
+		if ( count( $results ) === 0 ) {
+			return false;
+		}
+
+		$results = $this->set( $key, $flags, $exptime, "$value{$results[0]['value']}" );
+		return $results;
+	}
+
 	public function replace( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$current = $this->get( [ $key ] );
 		if ( count( $current ) === 0 ) {
