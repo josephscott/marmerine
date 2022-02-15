@@ -121,7 +121,7 @@ This will append a string to the value of an existing key.
 
 ### `prepend`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `prepend <key> <flags> <exptime> <length> [noreply]\r\n<data>\r\n`
 - **Success Response:** `STORED\r\n`
 - **Error Response:** `NOT_STORED\r\n`
