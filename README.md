@@ -145,7 +145,7 @@ This will prepend a string to the value of an existing key.
 
 ### `touch`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `touch <key> <expiry> [noreply]\r\n`
 - **Success Response:** `TOUCHED\r\n`
 - **Error Resposne:** `NOT_FOUND\r\n`
