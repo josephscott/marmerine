@@ -43,6 +43,20 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 			return;
 
+		case 'touch':
+			$status = $storage->touch(
+				key: $data->key,
+				exptime: $data->exptime
+			);
+
+			if ( $status ) {
+				$conn->send( 'TOUCHED' );
+			} else {
+				$conn->send( 'NOT_FOUND' );
+			}
+
+			return;
+
 		case 'delete':
 			$status = $storage->delete( key: $data->key );
 
