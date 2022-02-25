@@ -85,7 +85,7 @@ class Memcached_Text {
 			break;
 		case 'touch':
 			$data->key = self::$parts[1];
-			$data->exptime = self::$parts[2];
+			$data->exptime = (int) self::$parts[2];
 			break;
 		}
 
