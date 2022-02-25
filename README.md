@@ -145,6 +145,23 @@ This will prepend a string to the value of an existing key.
 
 ### `touch`
 
+- **Supported:** No &#9940;
+- **Format:** `touch <key> <expiry> [noreply]\r\n`
+- **Success Response:** `TOUCHED\r\n`
+- **Error Resposne:** `NOT_FOUND\r\n`
+
+__Examples__
+```shell
+$ printf "add thing 0 300 3\r\nabc\r\n" | nc localhost 11211
+STORED
+$ printf "touch thing 1800\r\n" | nc localhost 11211
+TOUCHED
+```
+
+__Description__
+
+Update the expiration time of an existing key.
+
 ## Retrieve Commands 
 
 ### `get`
