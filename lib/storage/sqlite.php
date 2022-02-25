@@ -152,4 +152,23 @@ SQL;
 
 		return false;
 	}
+
+	public function touch( string $key, int $exptime ): bool {
+		$current = $this->get( [ $key ] );
+		if ( count( $current ) === 0 ) {
+			return false;
+		}
+
+		$result = $this->set(
+			$key,
+			$current[0]['flags'],
+			$exptime,
+			$current[0]['value']
+		);
+		if ( $result !== false ) {
+			return true;
+		}
+
+		return false;
+	}
 } 
