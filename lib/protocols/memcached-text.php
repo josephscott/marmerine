@@ -83,6 +83,10 @@ class Memcached_Text {
 				$data->keys[] = $k;
 			}
 			break;
+		case 'touch':
+			$data->key = self::$parts[1];
+			$data->exptime = self::$parts[2];
+			break;
 		}
 
 		$data->noreply = false;
