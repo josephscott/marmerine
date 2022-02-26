@@ -6,6 +6,7 @@
 - Implement the replace command
 - Implement the append command
 - Implement the prepend command
+- Implement the touch command
 - New test: version command
 - New test: replace command
 - New test: append command
