@@ -209,6 +209,8 @@ Gets the value for the given key.  When the key does not exist, a response with 
 
 ### `gets`
 
+This is the same as the `get` command, but is not yet supported.
+
 ### `gat`
 
 ### `gats`
