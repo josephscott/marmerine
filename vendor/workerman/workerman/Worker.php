@@ -33,7 +33,7 @@ class Worker
      *
      * @var string
      */
-    const VERSION = '4.0.26';
+    const VERSION = '4.0.30';
 
     /**
      * Status starting.
@@ -265,6 +265,13 @@ class Worker
      */
     public static $pidFile = '';
 
+    /**
+     * The file used to store the master process status file.
+     *
+     * @var string
+     */
+    public static $statusFile = '';
+    
     /**
      * Log file.
      *
@@ -644,7 +651,9 @@ class Worker
         if (static::$_OS !== \OS_TYPE_LINUX) {
             return;
         }
-        static::$_statisticsFile = __DIR__ . '/../workerman-' .posix_getpid().'.status';
+        
+        static::$_statisticsFile =  static::$statusFile ? static::$statusFile : __DIR__ . '/../workerman-' .posix_getpid().'.status';
+
         foreach (static::$_workers as $worker) {
             // Worker name.
             if (empty($worker->name)) {
@@ -764,7 +773,7 @@ class Worker
             static::safeEcho("----------------------- WORKERMAN -----------------------------\r\n");
             static::safeEcho('Workerman version:'. static::VERSION. '          PHP version:'. \PHP_VERSION. "\r\n");
             static::safeEcho("------------------------ WORKERS -------------------------------\r\n");
-            static::safeEcho("worker               listen                              processes status\r\n");
+            static::safeEcho("worker                        listen                              processes status\r\n");
             return;
         }
 
@@ -803,14 +812,15 @@ class Worker
         !empty($content) && static::safeEcho($line_last);
 
         if (static::$daemonize) {
-            foreach ($argv as $index => $value) {
+            $tmpArgv = $argv;
+            foreach ($tmpArgv as $index => $value) {
                 if ($value == '-d') {
-                    unset($argv[$index]);
+                    unset($tmpArgv[$index]);
                 } elseif ($value == 'start' || $value == 'restart') {
-                    $argv[$index] = 'stop';
+                    $tmpArgv[$index] = 'stop';
                 }
             }
-            static::safeEcho("Input \"php ".implode(' ', $argv)."\" to stop. Start success.\n\n");
+            static::safeEcho("Input \"php ".implode(' ', $tmpArgv)."\" to stop. Start success.\n\n");
         } else {
             static::safeEcho("Press Ctrl+C to stop. Start success.\n");
         }
@@ -920,7 +930,7 @@ class Worker
             exit;
         }
 
-        $statistics_file =  __DIR__ . "/../workerman-$master_pid.status";
+        $statistics_file =  static::$statusFile ? static::$statusFile : __DIR__ . "/../workerman-$master_pid.status";
 
         // execute command.
         switch ($command) {
@@ -934,8 +944,8 @@ class Worker
                     if (\is_file($statistics_file)) {
                         @\unlink($statistics_file);
                     }
-                    // Master process will send SIGUSR2 signal to all child processes.
-                    \posix_kill($master_pid, SIGUSR2);
+                    // Master process will send SIGIOT signal to all child processes.
+                    \posix_kill($master_pid, SIGIOT);
                     // Sleep 1 second.
                     \sleep(1);
                     // Clear terminal.
@@ -967,7 +977,7 @@ class Worker
             case 'stop':
                 if ($mode === '-g') {
                     static::$_gracefulStop = true;
-                    $sig = \SIGHUP;
+                    $sig = \SIGQUIT;
                     static::log("Workerman[$start_file] is gracefully stopping ...");
                 } else {
                     static::$_gracefulStop = false;
@@ -1005,7 +1015,7 @@ class Worker
                 break;
             case 'reload':
                 if($mode === '-g'){
-                    $sig = \SIGQUIT;
+                    $sig = \SIGUSR2;
                 }else{
                     $sig = \SIGUSR1;
                 }
@@ -1118,14 +1128,18 @@ class Worker
         \pcntl_signal(\SIGINT, $signalHandler, false);
         // stop
         \pcntl_signal(\SIGTERM, $signalHandler, false);
-        // graceful stop
+        // stop
         \pcntl_signal(\SIGHUP, $signalHandler, false);
+        // stop
+        \pcntl_signal(\SIGTSTP, $signalHandler, false);
+        // graceful stop
+        \pcntl_signal(\SIGQUIT, $signalHandler, false);
         // reload
         \pcntl_signal(\SIGUSR1, $signalHandler, false);
         // graceful reload
-        \pcntl_signal(\SIGQUIT, $signalHandler, false);
-        // status
         \pcntl_signal(\SIGUSR2, $signalHandler, false);
+        // status
+        \pcntl_signal(\SIGIOT, $signalHandler, false);
         // connection status
         \pcntl_signal(\SIGIO, $signalHandler, false);
         // ignore
@@ -1147,26 +1161,34 @@ class Worker
         \pcntl_signal(\SIGINT, \SIG_IGN, false);
         // uninstall stop signal handler
         \pcntl_signal(\SIGTERM, \SIG_IGN, false);
-        // uninstall graceful stop signal handler
+        // uninstall stop signal handler
         \pcntl_signal(\SIGHUP, \SIG_IGN, false);
+        // uninstall stop signal handler
+        \pcntl_signal(\SIGTSTP, \SIG_IGN, false);
+        // uninstall graceful stop signal handler
+        \pcntl_signal(\SIGQUIT, \SIG_IGN, false);
         // uninstall reload signal handler
         \pcntl_signal(\SIGUSR1, \SIG_IGN, false);
         // uninstall graceful reload signal handler
-        \pcntl_signal(\SIGQUIT, \SIG_IGN, false);
-        // uninstall status signal handler
         \pcntl_signal(\SIGUSR2, \SIG_IGN, false);
+        // uninstall status signal handler
+        \pcntl_signal(\SIGIOT, \SIG_IGN, false);
         // uninstall connections status signal handler
         \pcntl_signal(\SIGIO, \SIG_IGN, false);
         // reinstall stop signal handler
         static::$globalEvent->add(\SIGINT, EventInterface::EV_SIGNAL, $signalHandler);
         // reinstall graceful stop signal handler
+        static::$globalEvent->add(\SIGQUIT, EventInterface::EV_SIGNAL, $signalHandler);
+        // reinstall graceful stop signal handler
         static::$globalEvent->add(\SIGHUP, EventInterface::EV_SIGNAL, $signalHandler);
+        // reinstall graceful stop signal handler
+        static::$globalEvent->add(\SIGTSTP, EventInterface::EV_SIGNAL, $signalHandler);
         // reinstall reload signal handler
         static::$globalEvent->add(\SIGUSR1, EventInterface::EV_SIGNAL, $signalHandler);
         // reinstall graceful reload signal handler
-        static::$globalEvent->add(\SIGQUIT, EventInterface::EV_SIGNAL, $signalHandler);
-        // reinstall status signal handler
         static::$globalEvent->add(\SIGUSR2, EventInterface::EV_SIGNAL, $signalHandler);
+        // reinstall status signal handler
+        static::$globalEvent->add(\SIGIOT, EventInterface::EV_SIGNAL, $signalHandler);
         // reinstall connection status signal handler
         static::$globalEvent->add(\SIGIO, EventInterface::EV_SIGNAL, $signalHandler);
     }
@@ -1182,23 +1204,25 @@ class Worker
             // Stop.
             case \SIGINT:
             case \SIGTERM:
+            case \SIGHUP:
+            case \SIGTSTP;
                 static::$_gracefulStop = false;
                 static::stopAll();
                 break;
             // Graceful stop.
-            case \SIGHUP:
+            case \SIGQUIT:
                 static::$_gracefulStop = true;
                 static::stopAll();
                 break;
             // Reload.
-            case \SIGQUIT:
+            case \SIGUSR2:
             case \SIGUSR1:
-                static::$_gracefulStop = $signal === \SIGQUIT;
+                static::$_gracefulStop = $signal === \SIGUSR2;
                 static::$_pidsToRestart = static::getAllWorkerPids();
                 static::reload();
                 break;
             // Show status.
-            case \SIGUSR2:
+            case \SIGIOT:
                 static::writeStatisticsToStatusFile();
                 break;
             // Show connection status.
@@ -1401,7 +1425,7 @@ class Worker
             $worker = current(static::$_workers);
 
             // Display UI.
-            static::safeEcho(\str_pad($worker->name, 21) . \str_pad($worker->getSocketName(), 36) . \str_pad($worker->count, 10) . "[ok]\n");
+            static::safeEcho(\str_pad($worker->name, 30) . \str_pad($worker->getSocketName(), 36) . \str_pad($worker->count, 10) . "[ok]\n");
             $worker->listen();
             $worker->run();
             exit("@@@child exit@@@\r\n");
@@ -1443,30 +1467,21 @@ class Worker
     public static function forkOneWorkerForWindows($start_file)
     {
         $start_file = \realpath($start_file);
-        $std_file = \sys_get_temp_dir() . '/'.\str_replace(array('/', "\\", ':'), '_', $start_file).'.out.txt';
 
         $descriptorspec = array(
-            0 => array('pipe', 'a'), // stdin
-            1 => array('file', $std_file, 'w'), // stdout
-            2 => array('file', $std_file, 'w') // stderr
+            STDIN, STDOUT, STDOUT
         );
 
         $pipes       = array();
         $process     = \proc_open("php \"$start_file\" -q", $descriptorspec, $pipes);
-        $std_handler = \fopen($std_file, 'a+');
-        \stream_set_blocking($std_handler, false);
 
         if (empty(static::$globalEvent)) {
             static::$globalEvent = new Select();
             Timer::init(static::$globalEvent);
         }
-        $timer_id = Timer::add(0.1, function()use($std_handler)
-        {
-            Worker::safeEcho(\fread($std_handler, 65535));
-        });
 
         // 保存子进程句柄
-        static::$_processForWindows[$start_file] = array($process, $start_file, $timer_id);
+        static::$_processForWindows[$start_file] = array($process, $start_file);
     }
 
     /**
@@ -1479,14 +1494,12 @@ class Worker
         {
             $process = $process_data[0];
             $start_file = $process_data[1];
-            $timer_id = $process_data[2];
             $status = \proc_get_status($process);
             if(isset($status['running']))
             {
                 if(!$status['running'])
                 {
                     static::safeEcho("process $start_file terminated and try to restart\n");
-                    Timer::del($timer_id);
                     \proc_close($process);
                     static::forkOneWorkerForWindows($start_file);
                 }
@@ -1554,7 +1567,7 @@ class Worker
     /**
      * Get worker id.
      *
-     * @param int $worker_id
+     * @param string $worker_id
      * @param int $pid
      *
      * @return integer
@@ -1754,7 +1767,7 @@ class Worker
             }
 
             if (static::$_gracefulStop) {
-                $sig = \SIGQUIT;
+                $sig = \SIGUSR2;
             } else {
                 $sig = \SIGUSR1;
             }
@@ -1828,12 +1841,12 @@ class Worker
 
         static::$_status = static::STATUS_SHUTDOWN;
         // For master process.
-        if (static::$_masterPid === \posix_getpid()) {
+        if (\DIRECTORY_SEPARATOR === '/' && static::$_masterPid === \posix_getpid()) {
             static::log("Workerman[" . \basename(static::$_startFile) . "] stopping ...");
             $worker_pid_array = static::getAllWorkerPids();
             // Send stop signal to all child processes.
             if (static::$_gracefulStop) {
-                $sig = \SIGHUP;
+                $sig = \SIGQUIT;
             } else {
                 $sig = \SIGINT;
             }
@@ -1966,7 +1979,7 @@ class Worker
             \chmod(static::$_statisticsFile, 0722);
 
             foreach (static::getAllWorkerPids() as $worker_pid) {
-                \posix_kill($worker_pid, \SIGUSR2);
+                \posix_kill($worker_pid, \SIGIOT);
             }
             return;
         }

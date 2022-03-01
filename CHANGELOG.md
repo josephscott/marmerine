@@ -12,6 +12,7 @@
 - New test: append command
 - New test: prepend command
 - New test: touch command
+- Bump workerman to 4.0.30
 
 ## 0.0.1 - 2022-02-01
 - Start protocol information details
