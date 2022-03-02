@@ -73,6 +73,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'get':
+		case 'gets':
 			$results = $storage->get( keys: $data->keys );
 			foreach ( $results as $r ) {
 				$conn->send( 'VALUE ' . $r['key'] . ' ' . $r['flags'] . ' ' . strlen( $r['value'] ) );

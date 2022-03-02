@@ -7,6 +7,7 @@
 - Implement the append command
 - Implement the prepend command
 - Implement the touch command
+- Implement the gets command ( aliased to get )
 - New test: version command
 - New test: replace command
 - New test: append command
