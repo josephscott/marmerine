@@ -12,4 +12,9 @@ test( 'cas', function() {
 	expect( $result )->toBeArray();
 	expect( $result )->toHaveKeys( [ 'value', 'cas', 'flags' ] );
 	$this->assertEquals( $value, $result['value'] );
+
+	$cas = $result['cas'];
+
+	$result = MC::$mc->cas( $cas, $key, $value );
+	$this->assertEquals( true, $result );
 } );
