@@ -20,3 +20,28 @@ test( 'incr key does not exist', function() {
 	$result = MC::$mc->increment( $key, 1 );
 	$this->assertEquals( false, $result );
 } );
+
+test( 'incr multiple times', function() {
+	$key = 'thing';
+
+	$result = MC::$mc->add( $key, 1 );
+	$this->assertEquals( true, $result );
+
+	$result = MC::$mc->increment( $key, 1 );
+	$this->assertEquals( 2, $result );
+
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( 2, $result );
+
+	$result = MC::$mc->increment( $key, 21 );
+	$this->assertEquals( 23, $result );
+
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( 23, $result );
+
+	$result = MC::$mc->increment( $key, 23 );
+	$this->assertEquals( 46, $result );
+
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( 46, $result );
+} );
