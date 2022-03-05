@@ -45,3 +45,17 @@ test( 'incr multiple times', function() {
 	$result = MC::$mc->get( $key );
 	$this->assertEquals( 46, $result );
 } );
+
+test( 'incr string', function() {
+	$key = 'thing';
+	$value = 'abc';
+
+	$result = MC::$mc->add( $key, $value );
+	$this->assertEquals( true, $result );
+
+	$result = MC::$mc->increment( $key, 1 );
+	$this->assertEquals( false, $result );
+
+	$result = MC::$mc->get( $key );
+	$this->assertEquals( $value, $result );
+} );
