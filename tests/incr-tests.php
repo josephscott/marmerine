@@ -13,3 +13,10 @@ test( 'incr', function() {
 	$result = MC::$mc->increment( $key, 1 );
 	$this->assertEquals( 2, $result );
 } );
+
+test( 'incr key does not exist', function() {
+	$key = 'thing';
+
+	$result = MC::$mc->increment( $key, 1 );
+	$this->assertEquals( false, $result );
+} );
