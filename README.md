@@ -296,6 +296,32 @@ This only works on integer values.
 
 ### `decr`
 
+- **Supported:** No &#9940;
+- **Format:** `decr <key> <value> [noreply]\r\n`
+- **Success Response:** `<decremented value>\r\n`
+- **Error Response:** `CLIENT_ERROR cannot increment or decrement non-numeric value`
+
+__Examples__
+```shell
+$ printf "add thing 0 300 1\r\n9\r\n" | nc localhost 11211
+STORED
+$ printf "decr thing 1\r\n" | nc localhost 11211
+8
+$ printf "decr thing 1\r\n" | nc localhost 11211
+7
+```
+
+```shell
+$ printf "add thing 0 300 3\r\nabc\r\n" | nc localhost 11211
+STORED
+$ printf "decr thing 1\r\n" | nc localhost 11211
+CLIENT_ERROR cannot increment or decrement non-numeric value
+```
+
+__Description__
+
+This only works on integer values.
+
 ## Miscellaneous Commands
 
 ### `quit`
