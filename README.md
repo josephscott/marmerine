@@ -268,6 +268,32 @@ Delete all of the stored keys.  There is no fail or error condition, it always r
 
 ### `incr`
 
+- **Supported:** No &#9940;
+- **Format:** `incr <key> <value> [noreply]\r\n`
+- **Success Response:** `<incremented value>\r\n`
+- **Error Response:** `CLIENT_ERROR cannot increment or decrement non-numeric value`
+
+__Examples__
+```shell
+$ printf "add thing 0 300 1\r\n1\r\n" | nc localhost 11211
+STORED
+$ printf "incr thing 1\r\n" | nc localhost 11211
+2
+$ printf "incr thing 1\r\n" | nc localhost 11211
+3
+```
+
+```shell
+$ printf "add thing 0 300 3\r\nabc\r\n" | nc localhost 11211
+STORED
+$ printf "incr thing 1\r\n" | nc localhost 11211
+CLIENT_ERROR cannot increment or decrement non-numeric value
+```
+
+__Description__
+
+This only works on integer values.
+
 ### `decr`
 
 ## Miscellaneous Commands
