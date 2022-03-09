@@ -76,7 +76,7 @@ SQL;
 		return $results;
 	}
 
-	public function delete( string $key ) {
+	public function delete( string $key ): bool {
 		$results = $this->get( [ $key ] );
 		if ( count( $results ) === 0 ) {
 			return false;
