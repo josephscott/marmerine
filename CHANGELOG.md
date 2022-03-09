@@ -14,6 +14,7 @@
 - New test: prepend command
 - New test: touch command
 - Bump workerman to 4.0.30
+- Bump pest to 1.21.2
 
 ## 0.0.1 - 2022-02-01
 - Start protocol information details

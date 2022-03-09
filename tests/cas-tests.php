@@ -14,6 +14,7 @@ test( 'cas', function() {
 	$this->assertEquals( $value, $result['value'] );
 
 	$cas = $result['cas'];
+	error_log( var_export( $cas, true ) );
 
 	$result = MC::$mc->cas( $cas, $key, $value );
 	$this->assertEquals( true, $result );
