@@ -6,8 +6,8 @@ namespace Protocols;
 use Workerman\Connection\ConnectionInterface;
 
 class Memcached_Text {
-	protected static $parts = null;
-	protected static $cmd_end = null;
+	protected static array $parts = [];
+	protected static int|bool|null $cmd_end = null;
 
 	public static function input( string $buffer, ConnectionInterface $conn ) {
 		// Look for the text line command
