@@ -9,7 +9,7 @@ class Memcached_Text {
 	protected static array $parts = [];
 	protected static int|bool|null $cmd_end = null;
 
-	public static function input( string $buffer, ConnectionInterface $conn ) {
+	public static function input( string $buffer, ConnectionInterface $conn ): int {
 		// Look for the text line command
 		// https://github.com/memcached/memcached/blob/master/doc/protocol.txt
 		$cmd_end = \strpos( $buffer, "\r\n" );
@@ -47,7 +47,7 @@ class Memcached_Text {
 		return \strlen( $buffer );
 	}
 
-	public static function decode( string $buffer, ConnectionInterface $conn ) {
+	public static function decode( string $buffer, ConnectionInterface $conn ): object {
 		$data = new \StdClass();
 		$data->command = self::$parts[0];
 
@@ -99,7 +99,7 @@ class Memcached_Text {
 		return $data;
 	}
 
-	public static function encode( string $data, ConnectionInterface $conn ) {
+	public static function encode( string $data, ConnectionInterface $conn ): string {
 		return $data . "\r\n";
 	}
 }
