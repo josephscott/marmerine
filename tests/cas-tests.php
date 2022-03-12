@@ -1,6 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
+/*
 test( 'cas', function() {
 	$key = 'thing';
 	$value = 'abc';
@@ -19,3 +20,4 @@ test( 'cas', function() {
 	$result = MC::$mc->cas( $cas, $key, $value );
 	$this->assertEquals( true, $result );
 } );
+*/
