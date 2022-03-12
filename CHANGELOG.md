@@ -8,11 +8,13 @@
 - Implement the prepend command
 - Implement the touch command
 - Implement the gets command ( aliased to get )
+- Implement the incr command
 - New test: version command
 - New test: replace command
 - New test: append command
 - New test: prepend command
 - New test: touch command
+- New test: incr command
 - Bump workerman to 4.0.30
 - Bump pest to 1.21.2
 
