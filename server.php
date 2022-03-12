@@ -83,6 +83,16 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 			return;
 
+		case 'incr':
+			$results = $storage->incr( key: $data->key, value: $data->value );
+			if ( $results === false ) {
+				$conn->send( 'CLIENT_ERROR cannot increment or decrement non-numeric value' );
+			} else {
+				$conn->send( $results );
+			}
+
+			return;
+
 		case 'flush_all':
 			if ( $data->delay > 0 ) {
 				$timer_id = Timer::add(
