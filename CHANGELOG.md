@@ -15,6 +15,7 @@
 - New test: prepend command
 - New test: touch command
 - New test: incr command
+- New test: decr command
 - Bump workerman to 4.0.30
 - Bump pest to 1.21.2
 
