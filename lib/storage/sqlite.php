@@ -117,6 +117,32 @@ SQL;
 		return $data;
 	}
 
+	public function incr( string $key, int $value): mixed {
+		$results = $this->get( [ $key ] );
+		if ( count( $results ) === 0 ) {
+			return false;
+		}
+
+		if ( !ctype_digit( $results[0]['value'] ) ) {
+			return false;
+		}
+
+		$new_value = $results[0]['value'] + $value;
+
+		$results = $this->set(
+			$key,
+			$results[0]['flags'],
+			$results[0]['exptime'],
+			$new_value
+		);
+
+		if ( $results === true ) {
+			return $new_value;
+		}
+
+		return false;
+	}
+
 	public function prepend( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$results = $this->get( [ $key ] );
 		if ( count( $results ) === 0 ) {
