@@ -85,6 +85,7 @@ class Memcached_Text {
 			}
 			break;
 		case 'incr':
+		case 'decr':
 			$data->key = self::$parts[1];
 			$data->value = (int) self::$parts[2];
 			break;
