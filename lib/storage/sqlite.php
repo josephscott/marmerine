@@ -76,6 +76,10 @@ SQL;
 		return $results;
 	}
 
+	public function decr( string $key, int $value): mixed {
+		return $this->incr( $key, -$value );
+	}
+
 	public function delete( string $key ): bool {
 		$results = $this->get( [ $key ] );
 		if ( count( $results ) === 0 ) {
