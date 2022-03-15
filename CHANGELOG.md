@@ -9,6 +9,7 @@
 - Implement the touch command
 - Implement the gets command ( aliased to get )
 - Implement the incr command
+- Implement the decr command
 - New test: version command
 - New test: replace command
 - New test: append command
