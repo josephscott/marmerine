@@ -84,7 +84,12 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'incr':
-			$results = $storage->incr( key: $data->key, value: $data->value );
+		case 'decr':
+			$results = $storage->{$data->command}(
+				key: $data->key,
+				value: $data->value
+			);
+
 			if ( $results === false ) {
 				$conn->send( 'CLIENT_ERROR cannot increment or decrement non-numeric value' );
 			} else {
