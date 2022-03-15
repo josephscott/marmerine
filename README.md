@@ -268,7 +268,7 @@ Delete all of the stored keys.  There is no fail or error condition, it always r
 
 ### `incr`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `incr <key> <value> [noreply]\r\n`
 - **Success Response:** `<incremented value>\r\n`
 - **Error Response:** `CLIENT_ERROR cannot increment or decrement non-numeric value`
