@@ -296,7 +296,7 @@ This only works on integer values.
 
 ### `decr`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
 - **Format:** `decr <key> <value> [noreply]\r\n`
 - **Success Response:** `<decremented value>\r\n`
 - **Error Response:** `CLIENT_ERROR cannot increment or decrement non-numeric value`
