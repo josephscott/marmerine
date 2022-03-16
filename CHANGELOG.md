@@ -1,13 +1,14 @@
 # Changelog
 
-## ????
+
+## 0.0.2 - 2022-03-15
 - Rename the test files
 - Implement the version command
 - Implement the replace command
 - Implement the append command
 - Implement the prepend command
 - Implement the touch command
-- Implement the gets command ( aliased to get )
+- Implement the gets command
 - Implement the incr command
 - Implement the decr command
 - New test: version command
@@ -19,6 +20,7 @@
 - New test: decr command
 - Bump workerman to 4.0.30
 - Bump pest to 1.21.2
+
 
 ## 0.0.1 - 2022-02-01
 - Start protocol information details
