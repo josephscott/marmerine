@@ -121,7 +121,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'version':
-			$conn->send( '0.0.1' );
+			$conn->send( '0.0.2' );
 			return;
 	}
 };
