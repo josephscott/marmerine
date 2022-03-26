@@ -52,11 +52,12 @@ SQL;
 			return false;
 		}
 
-		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "value" ) VALUES ( :key, :exptime, :flags, :added_ts, :value )' );
+		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "cas", "value" ) VALUES ( :key, :exptime, :flags, :added_ts, :cas, :value )' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
 		$query->bindValue( ':exptime', $exptime + time(), SQLITE3_INTEGER );
 		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
 		$query->bindValue( ':added_ts', time(), SQLITE3_INTEGER );
+		$query->bindValue( ':cas', 0, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		$result = $query->execute();
 
@@ -169,11 +170,12 @@ SQL;
 	}
 
 	public function set( string $key, int $flags, int $exptime, string|int $value ): bool {
-		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "value" ) VALUES ( :key, :exptime, :flags, :added_ts, :value ) ON CONFLICT("key") DO UPDATE SET "exptime" = :exptime, "flags" = :flags, "added_ts" = :added_ts, "value" = :value' );
+		$query = self::$db->prepare( 'INSERT INTO storage ( "key", "exptime", "flags", "added_ts", "cas", "value" ) VALUES ( :key, :exptime, :flags, :added_ts, :cas, :value ) ON CONFLICT("key") DO UPDATE SET "exptime" = :exptime, "flags" = :flags, "added_ts" = :added_ts, "cas" = :cas + 1, "value" = :value' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
 		$query->bindValue( ':exptime', $exptime + time(), SQLITE3_INTEGER );
 		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
 		$query->bindValue( ':added_ts', time(), SQLITE3_INTEGER );
+		$query->bindValue( ':cas', 0, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		$result = $query->execute();
 
