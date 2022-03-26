@@ -3,6 +3,7 @@
 
 ## ????
 - SQLite schema update: added cas field
+- Bump workerman to 4.0.31
 
 
 ## 0.0.2 - 2022-03-15
