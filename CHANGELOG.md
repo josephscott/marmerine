@@ -1,6 +1,10 @@
 # Changelog
 
 
+## ????
+- SQLite schema update: added cas field
+
+
 ## 0.0.2 - 2022-03-15
 - Rename the test files
 - Implement the version command

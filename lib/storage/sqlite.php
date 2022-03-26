@@ -17,6 +17,7 @@ class Memcached_Storage {
 					'exptime' INTEGER NOT NULL,
 					'flags' INTEGER NOT NULL,
 					'added_ts' INTEGER NOT NULL,
+					'cas' INTEGER NOT NULL,
 					'value' BLOB NOT NULL,
 					PRIMARY KEY( 'key' )
 				);
