@@ -58,6 +58,8 @@ Worker::runAll();
 
 ### An http server
 ```php
+<?php
+
 use Workerman\Worker;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -89,6 +91,8 @@ Worker::runAll();
 
 ### A tcp server
 ```php
+<?php
+
 use Workerman\Worker;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -113,6 +117,29 @@ $tcp_worker->onMessage = function ($connection, $data) {
 // Emitted when connection is closed
 $tcp_worker->onClose = function ($connection) {
     echo "Connection closed\n";
+};
+
+Worker::runAll();
+```
+
+### A udp server
+
+```php
+<?php
+
+use Workerman\Worker;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$worker = new Worker('udp://0.0.0.0:1234');
+
+// 4 processes
+$tcp_worker->count = 4;
+
+// Emitted when data received
+$worker->onMessage = function($connection, $data)
+{
+    $connection->send($data);
 };
 
 Worker::runAll();
@@ -153,6 +180,7 @@ Worker::runAll();
 ### Custom protocol
 Protocols/MyTextProtocol.php
 ```php
+<?php
 
 namespace Protocols;
 
@@ -189,6 +217,8 @@ class MyTextProtocol
 ```
 
 ```php
+<?php
+
 use Workerman\Worker;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -215,6 +245,7 @@ Worker::runAll();
 
 ### Timer
 ```php
+<?php
 
 use Workerman\Worker;
 use Workerman\Timer;
@@ -236,6 +267,7 @@ Worker::runAll();
 
 ### AsyncTcpConnection (tcp/ws/text/frame etc...)
 ```php
+<?php
 
 use Workerman\Worker;
 use Workerman\Connection\AsyncTcpConnection;
