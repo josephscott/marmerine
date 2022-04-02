@@ -57,7 +57,7 @@ SQL;
 		$query->bindValue( ':exptime', $exptime + time(), SQLITE3_INTEGER );
 		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
 		$query->bindValue( ':added_ts', time(), SQLITE3_INTEGER );
-		$query->bindValue( ':cas', 0, SQLITE3_INTEGER );
+		$query->bindValue( ':cas', 1, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		$result = $query->execute();
 
@@ -175,7 +175,7 @@ SQL;
 		$query->bindValue( ':exptime', $exptime + time(), SQLITE3_INTEGER );
 		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
 		$query->bindValue( ':added_ts', time(), SQLITE3_INTEGER );
-		$query->bindValue( ':cas', 0, SQLITE3_INTEGER );
+		$query->bindValue( ':cas', 1, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		$result = $query->execute();
 
