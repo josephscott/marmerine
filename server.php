@@ -25,12 +25,22 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 		case 'replace':
 		case 'append':
 		case 'prepend':
-			$status = $storage->{$data->command}(
-				key: $data->key,
-				flags: $data->flags,
-				exptime: $data->exptime,
-				value: $data->value,
-			);
+			if ( $data->command === 'cas' ) {
+				$status = $storage->{$data->command}(
+					key: $data->key,
+					flags: $data->flags,
+					exptime: $data->exptime,
+					value: $data->value,
+					cas: $data->cas
+				);
+			} else {
+				$status = $storage->{$data->command}(
+					key: $data->key,
+					flags: $data->flags,
+					exptime: $data->exptime,
+					value: $data->value,
+				);
+			}
 
 			if ( $data->noreply ) {
 				return;
