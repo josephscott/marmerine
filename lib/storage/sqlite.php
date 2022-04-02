@@ -92,6 +92,12 @@ SQL;
 		return true;
 	}
 
+	public function enable( string $option ) {
+		if ( $option === 'WAL' ) {
+			self::$db->exec( 'PRAGMA main.journal_mode=WAL' );
+		}
+	}
+
 	public function flush_all(): bool {
 		$result = self::$db->exec( 'DELETE FROM storage' );
 		return $result;
