@@ -3,6 +3,7 @@
 
 ## ????
 - SQLite schema update: added cas field
+- New test: cas command
 - Bump workerman to 4.0.31
 
 
