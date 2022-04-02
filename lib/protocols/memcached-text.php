@@ -29,10 +29,15 @@ class Memcached_Text {
 				|| self::$parts[0] === 'replace'
 				|| self::$parts[0] === 'append'
 				|| self::$parts[0] === 'prepend'
+				|| self::$parts[0] === 'cas'
 			) {
 				self::$parts[2] = (int) self::$parts[2];
 				self::$parts[3] = (int) self::$parts[3];
 				self::$parts[4] = (int) self::$parts[4];
+
+				if ( self::$parts[0] === 'cas' ) {
+					self::$parts[5] = (int) self::$parts[5];
+				}
 
 				$full_size = self::$cmd_end + 2 + self::$parts[4] + 2;
 				if ( \strlen( $buffer ) >= $full_size ) {
@@ -57,6 +62,7 @@ class Memcached_Text {
 		case 'replace':
 		case 'append':
 		case 'prepend':
+		case 'cas':
 			$data->key = self::$parts[1];
 			$data->flags = self::$parts[2];
 			$data->exptime = self::$parts[3];
@@ -65,6 +71,10 @@ class Memcached_Text {
 				self::$cmd_end + 2,
 				self::$parts[4]
 			);
+
+			if ( $data->command === 'cas' ) {
+				$data->cas = self::$parts[5];
+			}
 
 			break;
 		case 'delete':
