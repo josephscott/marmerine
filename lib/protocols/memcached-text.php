@@ -66,15 +66,16 @@ class Memcached_Text {
 			$data->key = self::$parts[1];
 			$data->flags = self::$parts[2];
 			$data->exptime = self::$parts[3];
+
+			if ( $data->command === 'cas' ) {
+				$data->cas = self::$parts[5];
+			}
+
 			$data->value = \substr(
 				$buffer,
 				self::$cmd_end + 2,
 				self::$parts[4]
 			);
-
-			if ( $data->command === 'cas' ) {
-				$data->cas = self::$parts[5];
-			}
 
 			break;
 		case 'delete':
