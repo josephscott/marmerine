@@ -16,8 +16,9 @@ $server->onConnect = function ( TcpConnection $conn ) {
 };
 
 $server->onMessage = function ( TcpConnection $conn, object $data ) {
-	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
 #	$storage = new Memcached_Storage( ':memory:' );
+	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
+	$storage->enable( 'WAL' );
 
 	switch ( $data->command ) {
 		case 'add':
