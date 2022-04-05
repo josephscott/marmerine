@@ -78,6 +78,9 @@ SQL;
 		return $results;
 	}
 
+	public function cas( string $key, int $flags, int $exptime, string|int $value, int $cas ): bool {
+	}
+
 	public function decr( string $key, int $value): mixed {
 		return $this->incr( $key, -$value );
 	}

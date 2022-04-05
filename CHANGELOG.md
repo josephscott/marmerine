@@ -5,7 +5,7 @@
 - SQLite schema update: added cas field
 - SQLite: enable WAL
 - New test: cas command
-- Bump workerman to 4.0.31
+- Bump workerman to 4.0.33
 
 
 ## 0.0.2 - 2022-03-15
