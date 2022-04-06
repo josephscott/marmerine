@@ -18,3 +18,8 @@ test( 'cas', function() {
 	$result = MC::$mc->cas( $cas, $key, $value );
 	$this->assertEquals( true, $result );
 } );
+
+test( 'cas - no key', function() {
+	$result = MC::$mc->cas( 1, 'thing', 'abc' );
+	$this->assertEquals( true, $result );
+} );
