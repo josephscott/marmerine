@@ -2,9 +2,10 @@
 
 
 ## ????
+- Implement the cas command
+- New test: cas command
 - SQLite schema update: added cas field
 - SQLite: enable WAL
-- New test: cas command
 - Bump workerman to 4.0.33
 
 
