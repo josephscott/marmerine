@@ -19,7 +19,13 @@ test( 'cas', function() {
 	$this->assertEquals( true, $result );
 } );
 
-test( 'cas - no key', function() {
-	$result = MC::$mc->cas( 1, 'thing', 'abc' );
-	$this->assertEquals( true, $result );
+test( 'cas first', function() {
+	$key = 'thing';
+	$value = 'abc';
+
+	$result = MC::$mc->cas( 1, $key, $value );
+	$this->assertEquals( false, $result );
+
+	$result = MC::$mc->get( $key, null, Memcached::GET_EXTENDED );
+	$this->assertEquals( false, $result );
 } );
