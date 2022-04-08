@@ -143,6 +143,11 @@ This will prepend a string to the value of an existing key.
 
 ### `cas`
 
+- **Supported:** Yes &#9989;
+- **Format:** `cas <key> <flags> <expiry> <datalen> <cas> [noreply]\r\n<data>\r\n`
+- **Success Response:** `STORED\r\n`
+- **Error Resposne:** `NOT_STORED\r\n`
+
 ### `touch`
 
 - **Supported:** Yes &#9989;
