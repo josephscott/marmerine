@@ -79,6 +79,31 @@ SQL;
 	}
 
 	public function cas( string $key, int $flags, int $exptime, string|int $value, int $cas ): bool {
+		$query = self::$db->prepare( '
+			UPDATE storage SET
+				"exptime" = :exptime,
+				"flags" = :flags,
+				"cas" = cas + 1,
+				"value" = :value
+			WHERE
+				"key" = :key
+				AND "cas" = :cas
+		' );
+		$query->bindValue( ':key', $key, SQLITE3_TEXT );
+		$query->bindValue( ':exptime', $exptime + time(), SQLITE3_INTEGER );
+		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
+		$query->bindValue( ':cas', $cas, SQLITE3_INTEGER );
+		$query->bindValue( ':value', $value, SQLITE3_BLOB );
+		$result = $query->execute();
+
+		if (
+			$result !== false
+			&& self::$db->changes() === 1
+		) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public function decr( string $key, int $value): mixed {
