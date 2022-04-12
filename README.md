@@ -149,6 +149,7 @@ This will prepend a string to the value of an existing key.
 - **Error Resposne:** `NOT_STORED\r\n`
 
 __EXAMPLES__
+```
 $ printf "set thing 0 300 3\r\nabc\r\n" | nc localhost 11211
 STORED
 $ printf "gets thing\r\n" | nc localhost 11211
@@ -157,6 +158,7 @@ abc
 END
 $ printf "cas thing 0 300 3 1\r\nXYZ\r\n"| nc localhost 11211
 STORED
+```
 
 __Description__
 
