@@ -12,6 +12,23 @@ require_once __DIR__ . '/lib/storage/sqlite.php';
 $server = new Worker( 'Memcached_Text://127.0.0.1:11211' );
 $server->count = 4;
 
+$options = [
+	'verbose' => 0, // 0 or 1
+];
+
+foreach ( $argv as $arg_option ) {
+	if ( !str_starts_with( $arg_option, '--' ) ) {
+		continue;
+	}
+
+	$arg_option = substr( $arg_option, 2 );
+	list( $arg_name, $arg_value ) = explode( '=', $arg_option );
+
+	if ( isset( $options[$arg_name] ) ) {
+		$options[$arg_name] = $arg_value;
+	}
+}
+
 $server->onConnect = function ( TcpConnection $conn ) {
 };
 
