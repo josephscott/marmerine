@@ -230,6 +230,30 @@ Gets the value for the given key.  When the key does not exist, a response with 
 
 ### `gets`
 
+- **Supported:** Yes &#9989;
+- **Format:** `get <key> [key2 key3 ... keyn]\r\n`
+- **Found Response:** `VALUE <key> <flags> <length> <cas>\r\n<data>\r\nEND\r\n`
+- **Not Found Response:** `END\r\n`
+
+__Examples__
+```shell
+$ printf "set thing 0 300 3\r\nabc\r\n" | nc localhost 11211
+STORED
+$ printf "gets thing\r\n" | nc localhost 11211
+VALUE thing 0 3 1
+abc
+END
+```
+
+```shell
+$ printf "gets thing\r\n" | nc localhost 11211
+END
+```
+
+__Description__
+
+This is the get command with the addition of the cas token in the response.
+
 ### `gat`
 
 ### `gats`
