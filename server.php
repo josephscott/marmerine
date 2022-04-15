@@ -27,6 +27,16 @@ foreach ( $argv as $arg_option ) {
 	}
 }
 
+function verbose( $msg ) {
+	global $options;
+
+	if ( (int) $options['verbose'] !== 1 ) {
+		return;
+	}
+
+	echo "$msg\n";
+}
+
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
 
@@ -38,6 +48,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
 	$storage->enable( 'WAL' );
 
+	verbose( "{$conn->id} > {$data->command}" );
 	switch ( $data->command ) {
 		case 'add':
 		case 'set':
