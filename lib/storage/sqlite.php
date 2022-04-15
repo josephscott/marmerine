@@ -9,7 +9,9 @@ class Memcached_Storage {
 			self::$db = new SQLite3( $db );
 		}
 
-		$table_check = self::$db->querySingle( 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"' );
+		$sql = 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"';
+		verbose( "SQLite: $sql" );
+		$table_check = self::$db->querySingle( $sql );
 		if ( $table_check === null ) {
 			$sql = <<<SQL
 				CREATE TABLE IF NOT EXISTS 'storage' (
@@ -27,6 +29,7 @@ class Memcached_Storage {
 				);
 SQL;
 
+			verbose( "SQLite: $sql" );
 			$create = self::$db->exec( $sql );
 		}
 	}
@@ -34,6 +37,7 @@ SQL;
 	private function _remove_key( string $key ): bool {
 		$query = self::$db->prepare( 'DELETE FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
+		verbose( "SQLite: {$query->getSQL( true )}" );
 		$result = $query->execute();
 
 		if ( $result === false ) {
@@ -46,6 +50,7 @@ SQL;
 	public function add( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$query = self::$db->prepare( 'SELECT key FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
+		verbose( "SQLite: {$query->getSQL( true )}" );
 		$row = $query->execute()->fetchArray( SQLITE3_ASSOC );
 
 		if ( $row !== false ) {
@@ -59,6 +64,7 @@ SQL;
 		$query->bindValue( ':added_ts', time(), SQLITE3_INTEGER );
 		$query->bindValue( ':cas', 1, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
+		verbose( "SQLite: {$query->getSQL( true )}" );
 		$result = $query->execute();
 
 		if ( $result !== false ) {
@@ -94,6 +100,7 @@ SQL;
 		$query->bindValue( ':flags', $flags, SQLITE3_INTEGER );
 		$query->bindValue( ':cas', $cas, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
+		verbose( "SQLite: {$query->getSQL( true )}" );
 		$result = $query->execute();
 
 		if (
@@ -122,12 +129,16 @@ SQL;
 
 	public function enable( string $option ) {
 		if ( $option === 'WAL' ) {
-			self::$db->exec( 'PRAGMA main.journal_mode=WAL' );
+			$sql = 'PRAGMA main.journal_mode=WAL';
+			verbose( "SQLite: $sql" );
+			self::$db->exec( $sql );
 		}
 	}
 
 	public function flush_all(): bool {
-		$result = self::$db->exec( 'DELETE FROM storage' );
+		$sql = 'DELETE FROM storage';
+		verbose( "SQLite: $sql" );
+		$result = self::$db->exec( $sql );
 		return $result;
 	}
 
@@ -143,6 +154,7 @@ SQL;
 			$query->bindValue( ":key{$i}", $k, SQLITE3_TEXT );
 		}
 
+		verbose( "SQLite: {$query->getSQL( true )}" );
 		$result = $query->execute();
 		$data = [];
 		while ( $row = $result->fetchArray( SQLITE3_ASSOC ) ) {
@@ -211,6 +223,7 @@ SQL;
 		$query->bindValue( ':added_ts', time(), SQLITE3_INTEGER );
 		$query->bindValue( ':cas', 1, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
+		verbose( "SQLite: {$query->getSQL( true )}" );
 		$result = $query->execute();
 
 		if ( $result !== false ) {
