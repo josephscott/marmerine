@@ -2,6 +2,7 @@
 
 
 ## ????
+- Fix: do not try to repeatedly enable SQLite WAL
 - Implement the cas command
 - New test: cas command
 - CLI option: --port
