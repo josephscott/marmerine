@@ -118,6 +118,7 @@ class Memcached_Text {
 	}
 
 	public static function encode( string $data, ConnectionInterface $conn ): string {
+		verbose( "{$conn->id} < {$data}" );
 		return $data . "\r\n";
 	}
 }
