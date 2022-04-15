@@ -53,6 +53,8 @@ class Memcached_Text {
 	}
 
 	public static function decode( string $buffer, ConnectionInterface $conn ): object {
+		verbose( "{$conn->id} > {$buffer}" );
+
 		$data = new \StdClass();
 		$data->command = self::$parts[0];
 

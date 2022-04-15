@@ -48,7 +48,6 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
 	$storage->enable( 'WAL' );
 
-	verbose( "{$conn->id} > {$data->command}" );
 	switch ( $data->command ) {
 		case 'add':
 		case 'set':
