@@ -5,6 +5,7 @@
 - Fix: do not try to repeatedly enable SQLite WAL
 - Implement the cas command
 - New test: cas command
+- New test: gets command
 - CLI option: --port
 - CLI option: --verbose
 - SQLite schema update: added cas field
