@@ -5,6 +5,7 @@
 - Implement the cas command
 - New test: cas command
 - CLI option: --port
+- CLI option: --verbose
 - SQLite schema update: added cas field
 - SQLite: enable WAL
 - Bump workerman to 4.0.33
