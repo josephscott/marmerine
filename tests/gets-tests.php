@@ -13,3 +13,11 @@ test( 'gets', function() {
 	expect( $result )->toHaveKeys( [ 'value', 'cas', 'flags' ] );
 	$this->assertEquals( $value, $result['value'] );
 } );
+
+test( 'gets without add', function() {
+	$key = 'thing';
+	$value = 'abc';
+
+	$result = MC::$mc->get( $key, null, Memcached::GET_EXTENDED );
+	$this->assertEquals( false, $result );
+} );
