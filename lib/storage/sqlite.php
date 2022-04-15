@@ -128,7 +128,10 @@ SQL;
 	}
 
 	public function enable( string $option ) {
-		if ( $option === 'WAL' ) {
+		static $wal = false;
+
+		if ( $option === 'WAL' && $wal !== true ) {
+			$wal = true;
 			$sql = 'PRAGMA main.journal_mode=WAL';
 			verbose( "SQLite: $sql" );
 			self::$db->exec( $sql );
