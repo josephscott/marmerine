@@ -34,7 +34,7 @@ function verbose( $msg ) {
 		return;
 	}
 
-	echo "$msg\n";
+	echo trim( $msg ) . "\n";
 }
 
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
