@@ -404,7 +404,11 @@ Get the version number from the server.
 
 ### `verbosity`
 
+- **Supported:** No &#9940;
+
 ### `stats`
+
+- **Supported:** No &#9940;
 
 ## Memcached Resources
 
