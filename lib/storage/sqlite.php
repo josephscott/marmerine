@@ -27,6 +27,12 @@ class Memcached_Storage {
 				CREATE INDEX 'idx_added_ts' ON 'storage' (
 					'added_ts' DESC
 				);
+
+				CREATE TABLE IF NOT EXISTS 'stats' (
+					'action' TEXT NOT NULL UNIQUE,
+					'count' INTEGER NOT NULL,
+					PRIMARY KEY( 'action' )
+				);
 SQL;
 
 			verbose( "SQLite: $sql" );
