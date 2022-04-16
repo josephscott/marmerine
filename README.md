@@ -256,7 +256,11 @@ This is the get command with the addition of the cas token in the response.
 
 ### `gat`
 
+- **Supported:** No &#9940;
+
 ### `gats`
+
+- **Supported:** No &#9940;
 
 ## Delete Commands
 
