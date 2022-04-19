@@ -38,6 +38,12 @@ function verbose( $msg ) {
 	echo trim( $msg ) . "\n";
 }
 
+function now() {
+	global $start_time;
+	$now = ( (int) microtime( true ) ) - $start_time;
+	return $now;
+}
+
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
 
@@ -165,6 +171,11 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			if ( !$data->noreply ) {
 				$conn->send( 'OK' );
 			}
+			return;
+
+		case 'stats':
+			$conn->send( 'STAT uptime ' . now() );
+			$conn->send( 'END' );
 			return;
 
 		case 'quit':
