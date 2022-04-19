@@ -2,6 +2,7 @@
 
 
 ## ????
+- Implement the stats command ( only a subset of data is available )
 - Fix: do not try to repeatedly enable SQLite WAL
 - Implement the cas command
 - New test: cas command
