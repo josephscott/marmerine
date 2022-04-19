@@ -174,6 +174,14 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'stats':
+			// The protocol supports an arguement for the stats command, but
+			// but using it is explicitly not documented, and generally
+			// throws an error.
+			if ( isset( $data->key ) ) {
+				$conn->send( 'ERROR' );
+				return;
+			}
+
 			$conn->send( 'STAT uptime ' . now() );
 			$conn->send( 'END' );
 			return;
