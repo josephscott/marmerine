@@ -102,6 +102,11 @@ class Memcached_Text {
 			$data->key = self::$parts[1];
 			$data->value = (int) self::$parts[2];
 			break;
+		case 'stats':
+			if ( !empty( self::$parts[1] ) ) {
+				$data->key = self::$parts[1];
+			}
+			break;
 		case 'touch':
 			$data->key = self::$parts[1];
 			$data->exptime = (int) self::$parts[2];
