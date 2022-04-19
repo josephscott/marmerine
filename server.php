@@ -1,5 +1,6 @@
 <?php
 declare( strict_types = 1 );
+$start_time = (int) microtime( true );
 
 use Workerman\Worker;
 use Workerman\Connection\TcpConnection;
