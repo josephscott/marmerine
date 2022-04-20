@@ -7,6 +7,7 @@
 - Implement the cas command
 - New test: cas command
 - New test: gets command
+- New test: stats command
 - CLI option: --port
 - CLI option: --verbose
 - SQLite schema update: added cas field
