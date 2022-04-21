@@ -2,6 +2,7 @@
 declare( strict_types = 1 );
 $start_time = (int) microtime( true );
 $version = '0.0.2';
+$pid = getmypid();
 
 use Workerman\Worker;
 use Workerman\Connection\TcpConnection;
@@ -175,6 +176,8 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'stats':
+			global $pid;
+
 			// The protocol supports an arguement for the stats command, but
 			// but using it is explicitly not documented, and generally
 			// throws an error.
@@ -183,6 +186,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
+			$conn->send( 'STAT pid ' . $pid );
 			$conn->send( 'STAT uptime ' . since_start() );
 			$conn->send( 'STAT time ' . time() );
 			$conn->send( 'END' );
