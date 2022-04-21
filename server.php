@@ -1,6 +1,7 @@
 <?php
 declare( strict_types = 1 );
 $start_time = (int) microtime( true );
+$version = '0.0.2';
 
 use Workerman\Worker;
 use Workerman\Connection\TcpConnection;
@@ -191,7 +192,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'version':
-			$conn->send( '0.0.2' );
+			$conn->send( $version );
 			return;
 	}
 };
