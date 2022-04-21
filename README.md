@@ -408,7 +408,9 @@ Get the version number from the server.
 
 ### `stats`
 
-- **Supported:** No &#9940;
+- **Supported:** Yes &#9989;
+- **Format:** `stats\r\n`
+- **Every Response:** `STAT <stat> <value>\r\nEND\r\n`
 
 ## Memcached Resources
 
