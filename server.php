@@ -39,10 +39,10 @@ function verbose( $msg ) {
 	echo trim( $msg ) . "\n";
 }
 
-function now() {
+function since_start() {
 	global $start_time;
-	$now = ( (int) microtime( true ) ) - $start_time;
-	return $now;
+	$since_start = ( (int) microtime( true ) ) - $start_time;
+	return $since_start;
 }
 
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
@@ -183,7 +183,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
-			$conn->send( 'STAT uptime ' . now() );
+			$conn->send( 'STAT uptime ' . since_start() );
 			$conn->send( 'STAT time ' . time() );
 			$conn->send( 'END' );
 			return;
