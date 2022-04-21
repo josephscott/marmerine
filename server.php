@@ -184,6 +184,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			}
 
 			$conn->send( 'STAT uptime ' . now() );
+			$conn->send( 'STAT time ' . time() );
 			$conn->send( 'END' );
 			return;
 
