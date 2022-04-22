@@ -412,6 +412,14 @@ Get the version number from the server.
 - **Format:** `stats\r\n`
 - **Every Response:** `STAT <stat> <value>\r\nEND\r\n`
 
+__Description__
+
+Stats that are currently supported:
+
+- pid
+- uptime
+- time
+
 ## Memcached Resources
 
 - [Memcached](https://github.com/memcached/memcached), the original.
