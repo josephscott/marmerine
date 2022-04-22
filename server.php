@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 $start_time = (int) microtime( true );
 $version = '0.0.2';
 $pid = getmypid();
+$connection_count = 0;
 
 use Workerman\Worker;
 use Workerman\Connection\TcpConnection;
@@ -50,6 +51,8 @@ $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
 
 $server->onConnect = function ( TcpConnection $conn ) {
+	global $connection_count;
+	$connection_count++;
 };
 
 $server->onMessage = function ( TcpConnection $conn, object $data ) {
@@ -177,6 +180,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 		case 'stats':
 			global $pid;
+			global $connection_count;
 
 			// The protocol supports an arguement for the stats command, but
 			// but using it is explicitly not documented, and generally
@@ -189,6 +193,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			$conn->send( 'STAT pid ' . $pid );
 			$conn->send( 'STAT uptime ' . since_start() );
 			$conn->send( 'STAT time ' . time() );
+			$conn->send( 'STAT total_connections ' . $connection_count );
 			$conn->send( 'END' );
 			return;
 

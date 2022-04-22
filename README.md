@@ -428,6 +428,7 @@ Stats that are currently supported:
 - pid
 - uptime
 - time
+- total_connections
 
 ## Memcached Resources
 
