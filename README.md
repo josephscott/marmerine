@@ -412,6 +412,15 @@ Get the version number from the server.
 - **Format:** `stats\r\n`
 - **Every Response:** `STAT <stat> <value>\r\nEND\r\n`
 
+__Example__
+```shell
+$ printf "stats\r\n" | nc localhost 11211
+STAT pid 92458
+STAT uptime 9
+STAT time 1650595977
+END
+```
+
 __Description__
 
 Stats that are currently supported:
