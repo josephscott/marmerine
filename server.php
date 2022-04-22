@@ -194,6 +194,12 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			$conn->send( 'STAT uptime ' . since_start() );
 			$conn->send( 'STAT time ' . time() );
 			$conn->send( 'STAT total_connections ' . $connection_count );
+
+			$curr_items = $storage->stat_curr_items();
+			if ( $curr_items !== false ) {
+				$conn->send( "STAT curr_items $curr_items" );
+			}
+
 			$conn->send( 'END' );
 			return;
 
