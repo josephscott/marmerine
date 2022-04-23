@@ -242,6 +242,19 @@ SQL;
 		return false;
 	}
 
+	public function stat_curr_items() {
+		$query = self::$db->prepare( 'SELECT count( "key" ) AS curr_items FROM storage' );
+		verbose( "SQLite: {$query->getSQL( true )}" );
+		$result = $query->execute();
+
+		if ( $result !== false ) {
+			$row = $result->fetchArray( SQLITE3_ASSOC );
+			return $row['curr_items'];
+		}
+
+		return false;
+	}
+
 	public function touch( string $key, int $exptime ): bool {
 		$current = $this->get( [ $key ] );
 		if ( count( $current ) === 0 ) {
