@@ -59,9 +59,17 @@ $server->onConnect = function ( TcpConnection $conn ) {
 };
 
 $server->onMessage = function ( TcpConnection $conn, object $data ) {
+	global $stats;
+
 #	$storage = new Memcached_Storage( ':memory:' );
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
 	$storage->enable( 'WAL' );
+
+	if ( !isset( $stats[ "cmd_{$data->command}" ] ) ) {
+		$stats[ "cmd_{$data->command}" ] = 1;
+	} else {
+		$stats[ "cmd_{$data->command}" ]++;
+	}
 
 	switch ( $data->command ) {
 		case 'add':
@@ -182,8 +190,6 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'stats':
-			global $stats;
-
 			// The protocol supports an arguement for the stats command, but
 			// but using it is explicitly not documented, and generally
 			// throws an error.
@@ -192,10 +198,12 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
-			$conn->send( 'STAT pid ' . $stats['pid'] );
 			$conn->send( 'STAT uptime ' . since_start() );
 			$conn->send( 'STAT time ' . time() );
-			$conn->send( 'STAT total_connections ' . $stats['total_connections'] );
+
+			foreach ( $stats as $k => $v ) {
+				$conn->send( "STAT $k $v" );
+			}
 
 			$curr_items = $storage->stat_curr_items();
 			if ( $curr_items !== false ) {
