@@ -50,27 +50,31 @@ function since_start() {
 	return $since_start;
 }
 
+function bump_stat( string $stat ) {
+	global $stats;
+
+	if ( !isset( $stats[$stat] ) ) {
+		$stats[$stat] = 1;
+	} else {
+		$stats[$stat]++;
+	}
+}
+
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
 
 $server->onConnect = function ( TcpConnection $conn ) {
-	global $stats;
-	$stats['total_connections']++;
+	bump_stat( 'total_connections' );
 };
 
 $server->onMessage = function ( TcpConnection $conn, object $data ) {
-	global $stats;
 	global $version;
 
 #	$storage = new Memcached_Storage( ':memory:' );
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
 	$storage->enable( 'WAL' );
 
-	if ( !isset( $stats[ "cmd_{$data->command}" ] ) ) {
-		$stats[ "cmd_{$data->command}" ] = 1;
-	} else {
-		$stats[ "cmd_{$data->command}" ]++;
-	}
+	bump_stat( "cmd_{$data->command}" );
 
 	switch ( $data->command ) {
 		case 'add':
