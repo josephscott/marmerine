@@ -431,6 +431,8 @@ Stats that are currently supported:
 - total_connections
 - curr_items
 - cmd_<command>
+- <command>_hits
+- <command>_misses
 
 ## Memcached Resources
 
