@@ -138,8 +138,10 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			}
 
 			if ( $status ) {
+				bump_stat( "{$data->command}_hits" );
 				$conn->send( 'DELETED' );
 			} else {
+				bump_stat( "{$data->command}_misses" );
 				$conn->send( 'NOT_FOUND' );
 			}
 
@@ -147,6 +149,13 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 		case 'get':
 			$results = $storage->get( keys: $data->keys );
+
+			if ( count( $results ) > 0 ) {
+				bump_stat( "{$data->command}_hits" );
+			} else {
+				bump_stat( "{$data->command}_misses" );
+			}
+
 			foreach ( $results as $r ) {
 				$conn->send( 'VALUE ' . $r['key'] . ' ' . $r['flags'] . ' ' . strlen( $r['value'] ) );
 				$conn->send( $r['value'] );
@@ -157,6 +166,13 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 		case 'gets':
 			$results = $storage->get( keys: $data->keys );
+
+			if ( count( $results ) > 0 ) {
+				bump_stat( "{$data->command}_hits" );
+			} else {
+				bump_stat( "{$data->command}_misses" );
+			}
+
 			foreach ( $results as $r ) {
 				$conn->send( 'VALUE ' . $r['key'] . ' ' . $r['flags'] . ' ' . strlen( $r['value'] ) . ' ' . $r['cas'] );
 				$conn->send( $r['value'] );
@@ -173,8 +189,10 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			);
 
 			if ( $results === false ) {
+				bump_stat( "{$data->command}_misses" );
 				$conn->send( 'CLIENT_ERROR cannot increment or decrement non-numeric value' );
 			} else {
+				bump_stat( "{$data->command}_hits" );
 				$conn->send( $results );
 			}
 
