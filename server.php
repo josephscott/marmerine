@@ -60,6 +60,7 @@ $server->onConnect = function ( TcpConnection $conn ) {
 
 $server->onMessage = function ( TcpConnection $conn, object $data ) {
 	global $stats;
+	global $version;
 
 #	$storage = new Memcached_Storage( ':memory:' );
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
