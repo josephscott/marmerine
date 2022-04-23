@@ -430,6 +430,7 @@ Stats that are currently supported:
 - time
 - total_connections
 - curr_items
+- cmd_<command>
 
 ## Memcached Resources
 
