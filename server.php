@@ -105,8 +105,10 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			}
 
 			if ( $status ) {
+				bump_stat( "{$data->command}_hits" );
 				$conn->send( 'STORED' );
 			} else {
+				bump_stat( "{$data->command}_misses" );
 				$conn->send( 'NOT_STORED' );
 			}
 
@@ -195,6 +197,8 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'stats':
+			global $stats;
+
 			// The protocol supports an arguement for the stats command, but
 			// but using it is explicitly not documented, and generally
 			// throws an error.
