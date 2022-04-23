@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '270a4dd35c5ee423f7474323c02fa18fbfa6a789',
+        'reference' => '0e2a63f4f1a6204f8da8737a1e2fc8cd0b0cc7a2',
         'name' => 'josephscott/marmerine',
         'dev' => true,
     ),
@@ -43,7 +43,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '270a4dd35c5ee423f7474323c02fa18fbfa6a789',
+            'reference' => '0e2a63f4f1a6204f8da8737a1e2fc8cd0b0cc7a2',
             'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
