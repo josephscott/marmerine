@@ -12,7 +12,7 @@
 - CLI option: --verbose
 - SQLite schema update: added cas field
 - SQLite: enable WAL
-- Bump workerman to 4.0.33
+- Bump workerman to 4.0.34
 
 
 ## 0.0.2 - 2022-03-15
