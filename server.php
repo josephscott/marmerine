@@ -121,8 +121,10 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			);
 
 			if ( $status ) {
+				bump_stat( "{$data->command}_hits" );
 				$conn->send( 'TOUCHED' );
 			} else {
+				bump_stat( "{$data->command}_misses" );
 				$conn->send( 'NOT_FOUND' );
 			}
 
