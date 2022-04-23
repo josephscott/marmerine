@@ -429,6 +429,7 @@ Stats that are currently supported:
 - uptime
 - time
 - total_connections
+- curr_items
 
 ## Memcached Resources
 
