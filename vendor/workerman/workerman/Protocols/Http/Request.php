@@ -298,7 +298,7 @@ class Request
             unset($this->sid);
         }
         if (!isset($this->sid)) {
-            $session_name = Http::sessionName();
+            $session_name = Session::$name;
             $sid = $session_id ? '' : $this->cookie($session_name);
             if ($sid === '' || $sid === null) {
                 if ($this->connection === null) {
@@ -306,7 +306,7 @@ class Request
                     return false;
                 }
                 $sid = $session_id ? $session_id : static::createSessionId();
-                $cookie_params = \session_get_cookie_params();
+                $cookie_params = Session::getCookieParams();
                 $this->connection->__header['Set-Cookie'] = array($session_name . '=' . $sid
                     . (empty($cookie_params['domain']) ? '' : '; Domain=' . $cookie_params['domain'])
                     . (empty($cookie_params['lifetime']) ? '' : '; Max-Age=' . $cookie_params['lifetime'])

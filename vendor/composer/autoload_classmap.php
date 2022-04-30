@@ -1297,6 +1297,7 @@ return array(
     'Workerman\\Events\\React\\StreamSelectLoop' => $vendorDir . '/workerman/workerman/Events/React/StreamSelectLoop.php',
     'Workerman\\Events\\Select' => $vendorDir . '/workerman/workerman/Events/Select.php',
     'Workerman\\Events\\Swoole' => $vendorDir . '/workerman/workerman/Events/Swoole.php',
+    'Workerman\\Events\\Uv' => $vendorDir . '/workerman/workerman/Events/Uv.php',
     'Workerman\\Lib\\Timer' => $vendorDir . '/workerman/workerman/Lib/Timer.php',
     'Workerman\\Protocols\\Frame' => $vendorDir . '/workerman/workerman/Protocols/Frame.php',
     'Workerman\\Protocols\\Http' => $vendorDir . '/workerman/workerman/Protocols/Http.php',

@@ -2590,17 +2590,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v6.0.7",
-            "version_normalized": "6.0.7.0",
+            "version": "v6.0.8",
+            "version_normalized": "6.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "70dcf7b2ca2ea08ad6ebcc475f104a024fb5632e"
+                "reference": "0d00aa289215353aa8746a31d101f8e60826285c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/70dcf7b2ca2ea08ad6ebcc475f104a024fb5632e",
-                "reference": "70dcf7b2ca2ea08ad6ebcc475f104a024fb5632e",
+                "url": "https://api.github.com/repos/symfony/console/zipball/0d00aa289215353aa8746a31d101f8e60826285c",
+                "reference": "0d00aa289215353aa8746a31d101f8e60826285c",
                 "shasum": ""
             },
             "require": {
@@ -2634,7 +2634,7 @@
                 "symfony/lock": "",
                 "symfony/process": ""
             },
-            "time": "2022-03-31T17:18:25+00:00",
+            "time": "2022-04-20T15:01:42+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2668,7 +2668,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v6.0.7"
+                "source": "https://github.com/symfony/console/tree/v6.0.8"
             },
             "funding": [
                 {
@@ -3115,17 +3115,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v6.0.3",
-            "version_normalized": "6.0.3.0",
+            "version": "v6.0.8",
+            "version_normalized": "6.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "522144f0c4c004c80d56fa47e40e17028e2eefc2"
+                "reference": "ac0aa5c2282e0de624c175b68d13f2c8f2e2649d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/522144f0c4c004c80d56fa47e40e17028e2eefc2",
-                "reference": "522144f0c4c004c80d56fa47e40e17028e2eefc2",
+                "url": "https://api.github.com/repos/symfony/string/zipball/ac0aa5c2282e0de624c175b68d13f2c8f2e2649d",
+                "reference": "ac0aa5c2282e0de624c175b68d13f2c8f2e2649d",
                 "shasum": ""
             },
             "require": {
@@ -3144,7 +3144,7 @@
                 "symfony/translation-contracts": "^2.0|^3.0",
                 "symfony/var-exporter": "^5.4|^6.0"
             },
-            "time": "2022-01-02T09:55:41+00:00",
+            "time": "2022-04-22T08:18:02+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3183,7 +3183,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v6.0.3"
+                "source": "https://github.com/symfony/string/tree/v6.0.8"
             },
             "funding": [
                 {
@@ -3317,26 +3317,26 @@
         },
         {
             "name": "workerman/workerman",
-            "version": "4.0.34",
-            "version_normalized": "4.0.34.0",
+            "version": "v4.0.36",
+            "version_normalized": "4.0.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/workerman.git",
-                "reference": "648375c317ecbe39c60ba31e64c69d8abcf2881b"
+                "reference": "ecf8b791f1a4beb98c1e0e9d09988cd4b0d1c5ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/workerman/zipball/648375c317ecbe39c60ba31e64c69d8abcf2881b",
-                "reference": "648375c317ecbe39c60ba31e64c69d8abcf2881b",
+                "url": "https://api.github.com/repos/walkor/workerman/zipball/ecf8b791f1a4beb98c1e0e9d09988cd4b0d1c5ab",
+                "reference": "ecf8b791f1a4beb98c1e0e9d09988cd4b0d1c5ab",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=5.4"
             },
             "suggest": {
                 "ext-event": "For better performance. "
             },
-            "time": "2022-04-20T13:55:45+00:00",
+            "time": "2022-04-29T15:06:27+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
