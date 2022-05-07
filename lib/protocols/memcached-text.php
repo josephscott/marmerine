@@ -3,13 +3,13 @@ declare( strict_types = 1 );
 
 namespace Protocols;
 
-use Workerman\Connection\ConnectionInterface;
+use Workerman\Connection\TcpConnection;
 
 class Memcached_Text {
 	protected static array $parts = [];
 	protected static int|bool|null $cmd_end = null;
 
-	public static function input( string $buffer, ConnectionInterface $conn ): int {
+	public static function input( string $buffer, TcpConnection $conn ): int {
 		// Look for the text line command
 		// https://github.com/memcached/memcached/blob/master/doc/protocol.txt
 		$cmd_end = \strpos( $buffer, "\r\n" );
@@ -52,7 +52,7 @@ class Memcached_Text {
 		return \strlen( $buffer );
 	}
 
-	public static function decode( string $buffer, ConnectionInterface $conn ): object {
+	public static function decode( string $buffer, TcpConnection $conn ): object {
 		verbose( "{$conn->id} > {$buffer}" );
 
 		$data = new \StdClass();
@@ -122,7 +122,7 @@ class Memcached_Text {
 		return $data;
 	}
 
-	public static function encode( string $data, ConnectionInterface $conn ): string {
+	public static function encode( string $data, TcpConnection $conn ): string {
 		verbose( "{$conn->id} < {$data}" );
 		return $data . "\r\n";
 	}
