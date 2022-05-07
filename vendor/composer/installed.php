@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '08767e7b970094436f9ab9abc559532178afcac6',
+        'reference' => 'ef70a5148cadccb0c14250e57527760bafc7bcf6',
         'name' => 'josephscott/marmerine',
         'dev' => true,
     ),
@@ -43,7 +43,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '08767e7b970094436f9ab9abc559532178afcac6',
+            'reference' => 'ef70a5148cadccb0c14250e57527760bafc7bcf6',
             'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
@@ -146,12 +146,12 @@
             'dev_requirement' => true,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '1.3.0',
-            'version' => '1.3.0.0',
+            'pretty_version' => '1.6.7',
+            'version' => '1.6.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
-            'reference' => 'ffc5aee6019eeae4ea618d97dd290ab95e77be59',
+            'reference' => 'd41c39cb2e487663bce9bbd97c660e244b73abad',
             'dev_requirement' => true,
         ),
         'phpunit/php-code-coverage' => array(

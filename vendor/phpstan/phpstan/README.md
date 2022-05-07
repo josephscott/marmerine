@@ -26,13 +26,13 @@ can be checked before you run the actual line.
 
 <a href="https://coders.thecodingmachine.com/phpstan"><img src="https://i.imgur.com/kQhNOTP.png" alt="TheCodingMachine" width="247" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://i.imgur.com/PmMC45f.png" alt="Private Packagist" width="326" height="64"></a>
+<a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://i.imgur.com/B2T63Do.png" alt="Private Packagist" width="283" height="64"></a>
 <br>
 <a href="https://careers.tuigroup.com/jobs/"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
 <br>
-<a href="https://www.intracto.com/"><img src="https://i.imgur.com/XRCDGZi.png" alt="Intracto" width="254" height="65"></a>
+<a href="https://www.iodigital.com/"><img src="https://i.imgur.com/fJlw1n9.png" alt="iO" width="254" height="65"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://jobs.ticketswap.com/"><img src="https://i.imgur.com/lhzcutK.png" alt="TicketSwap" width="269" height="64"></a>
 <br>
@@ -42,7 +42,7 @@ can be checked before you run the actual line.
 <br>
 <a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="https://i.imgur.com/1AhB5tW.png" alt="RightCapital" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship"><img src="https://i.imgur.com/0blm7ki.png" alt="ContentKing" width="283" height="64"></a>
+<a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship"><img src="https://i.imgur.com/HHhbPGN.png" alt="ContentKing" width="283" height="64"></a>
 <br>
 <a href="https://zol.fr?utm_source=phpstan"><img src="https://i.imgur.com/dzDgd4s.png" alt="ZOL" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
@@ -55,6 +55,8 @@ can be checked before you run the actual line.
 <a href="https://www.worksome.com/"><img src="https://i.imgur.com/TQKSwOl.png" alt="Worksome" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://www.campoint.net/"><img src="https://i.imgur.com/fR6eMUm.png" alt="campoint AG" width="283" height="64"></a>
+<br>
+<a href="https://www.crisp.nl/"><img src="https://i.imgur.com/jRJyPve.png" alt="Crisp.nl" width="283" height="64"></a>
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
 
