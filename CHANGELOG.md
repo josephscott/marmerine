@@ -13,6 +13,7 @@
 - SQLite schema update: added cas field
 - SQLite: enable WAL
 - Bump workerman to 4.0.36
+- Bump phpstan to 1.6.7
 
 
 ## 0.0.2 - 2022-03-15
