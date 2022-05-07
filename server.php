@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
-$start_time = (int) microtime( true );
-$version = '0.0.2';
 
 $stats = [
+	'start_time' => (int) microtime( true ),
+	'version' => '0.0.2',
 	'pid' => getmypid(),
 	'total_connections' => 0
 ];
@@ -45,8 +45,8 @@ function verbose( $msg ) {
 }
 
 function since_start() {
-	global $start_time;
-	$since_start = ( (int) microtime( true ) ) - $start_time;
+	global $stats;
+	$since_start = ( (int) microtime( true ) ) - $stats['start_time'];
 	return $since_start;
 }
 
@@ -68,8 +68,6 @@ $server->onConnect = function ( TcpConnection $conn ) {
 };
 
 $server->onMessage = function ( TcpConnection $conn, object $data ) {
-	global $version;
-
 #	$storage = new Memcached_Storage( ':memory:' );
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
 	$storage->enable( 'WAL' );
@@ -247,7 +245,8 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'version':
-			$conn->send( $version );
+			global $stats;
+			$conn->send( $stats['version'] );
 			return;
 	}
 };
