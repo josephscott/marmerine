@@ -14,6 +14,7 @@
 - SQLite: enable WAL
 - Bump workerman to 4.0.36
 - Bump phpstan to 1.6.7
+- Bump pest to 1.21.3
 
 
 ## 0.0.2 - 2022-03-15
