@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ef70a5148cadccb0c14250e57527760bafc7bcf6',
+        'reference' => 'e4aeaadc0494ad0cc7e55631b6c8c72a202a584e',
         'name' => 'josephscott/marmerine',
         'dev' => true,
     ),
@@ -43,7 +43,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ef70a5148cadccb0c14250e57527760bafc7bcf6',
+            'reference' => 'e4aeaadc0494ad0cc7e55631b6c8c72a202a584e',
             'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
@@ -74,12 +74,12 @@
             'dev_requirement' => true,
         ),
         'pestphp/pest' => array(
-            'pretty_version' => 'v1.21.2',
-            'version' => '1.21.2.0',
+            'pretty_version' => 'v1.21.3',
+            'version' => '1.21.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../pestphp/pest',
             'aliases' => array(),
-            'reference' => '63f009fadf9b37f611fda43928d03336475d5d9f',
+            'reference' => '66f69617f1e01032e009f783136f129de3476689',
             'dev_requirement' => true,
         ),
         'pestphp/pest-plugin' => array(
