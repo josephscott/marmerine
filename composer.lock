@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6555ee8f095db36a43ea8b5f5905c517",
+    "content-hash": "db3f7374626129b392b591986f4e4e2b",
     "packages": [
         {
             "name": "workerman/workerman",
-            "version": "v4.0.36",
+            "version": "v4.0.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/workerman.git",
-                "reference": "ecf8b791f1a4beb98c1e0e9d09988cd4b0d1c5ab"
+                "reference": "17937eb74526adc583a0217ba842e91d6d792576"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/workerman/zipball/ecf8b791f1a4beb98c1e0e9d09988cd4b0d1c5ab",
-                "reference": "ecf8b791f1a4beb98c1e0e9d09988cd4b0d1c5ab",
+                "url": "https://api.github.com/repos/walkor/workerman/zipball/17937eb74526adc583a0217ba842e91d6d792576",
+                "reference": "17937eb74526adc583a0217ba842e91d6d792576",
                 "shasum": ""
             },
             "require": {
@@ -67,7 +67,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-04-29T15:06:27+00:00"
+            "time": "2022-05-15T14:22:57+00:00"
         }
     ],
     "packages-dev": [
