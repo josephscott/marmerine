@@ -12,7 +12,7 @@
 - CLI option: --verbose
 - SQLite schema update: added cas field
 - SQLite: enable WAL
-- Bump workerman to 4.0.36
+- Bump workerman to 4.0.37
 - Bump phpstan to 1.6.7
 - Bump pest to 1.21.3
 
