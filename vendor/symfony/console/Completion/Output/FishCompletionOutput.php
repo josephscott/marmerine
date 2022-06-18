@@ -15,9 +15,9 @@ use Symfony\Component\Console\Completion\CompletionSuggestions;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @author Wouter de Jong <wouter@wouterj.nl>
+ * @author Guillaume Aveline <guillaume.aveline@pm.me>
  */
-class BashCompletionOutput implements CompletionOutputInterface
+class FishCompletionOutput implements CompletionOutputInterface
 {
     public function write(CompletionSuggestions $suggestions, OutputInterface $output): void
     {
@@ -28,6 +28,6 @@ class BashCompletionOutput implements CompletionOutputInterface
                 $values[] = '--no-'.$option->getName();
             }
         }
-        $output->writeln(implode("\n", $values));
+        $output->write(implode("\n", $values));
     }
 }
