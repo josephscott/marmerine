@@ -2,6 +2,7 @@
 
 ## ????
 - Bump workerman to 4.0.39
+- Bump phpstan to 1.8.0
 
 
 ## 0.0.3 - 2022-05-21
