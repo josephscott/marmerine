@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"require": {
 		"php": ">=8.1.0",
-		"workerman/workerman": "4.0.39"
+		"workerman/workerman": "4.0.41"
 	},
 	"require-dev": {
 		"phpstan/phpstan": "1.8.0",
