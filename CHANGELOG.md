@@ -1,7 +1,7 @@
 # Changelog
 
 ## ????
-- Bump workerman to 4.0.41
+- Bump workerman to 4.1.0
 - Bump phpstan to 1.8.0
 
 
