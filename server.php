@@ -1,9 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
+const MARMERINE_VERSION = '0.0.4';
+
 $stats = [
 	'start_time' => (int) microtime( true ),
-	'version' => '0.0.2',
 	'pid' => getmypid(),
 	'total_connections' => 0
 ];
@@ -246,7 +247,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 
 		case 'version':
 			global $stats;
-			$conn->send( $stats['version'] );
+			$conn->send( MARMERINE_VERSION );
 			return;
 	}
 };
