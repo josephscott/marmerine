@@ -246,7 +246,6 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'version':
-			global $stats;
 			$conn->send( MARMERINE_VERSION );
 			return;
 	}
