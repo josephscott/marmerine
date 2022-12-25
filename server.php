@@ -63,7 +63,7 @@ function bump_stat( string $stat ) {
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
 
-$server->onWorkerStart = function() {
+$server->onWorkerStart = static function() {
 	global $storage;
 	//$storage = new Memcached_Storage( ':memory:' );
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
