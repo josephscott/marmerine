@@ -5,6 +5,7 @@ const MARMERINE_VERSION = '0.0.4';
 
 $stats = [
 	'start_time' => (int) microtime( true ),
+	'version' => MARMERINE_VERSION,
 	'pid' => getmypid(),
 	'total_connections' => 0
 ];
