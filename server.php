@@ -46,8 +46,7 @@ function verbose( $msg ) {
 
 function since_start() {
 	global $stats;
-	$since_start = time() - $stats['start_time'];
-	return $since_start;
+	return time() - $stats['start_time'];
 }
 
 function bump_stat( string $stat ) {
