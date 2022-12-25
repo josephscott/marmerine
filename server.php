@@ -2,7 +2,7 @@
 declare( strict_types = 1 );
 
 $stats = [
-	'start_time' => (int) microtime( true ),
+	'start_time' => time(),
 	'version' => '0.0.2',
 	'pid' => getmypid(),
 	'total_connections' => 0
@@ -46,7 +46,7 @@ function verbose( $msg ) {
 
 function since_start() {
 	global $stats;
-	$since_start = ( (int) microtime( true ) ) - $stats['start_time'];
+	$since_start = time() - $stats['start_time'];
 	return $since_start;
 }
 
