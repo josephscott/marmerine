@@ -1,8 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
+
+define('MAR_START_TIME', time());
+
 $stats = [
-	'start_time' => time(),
+	'start_time' => MAR_START_TIME,
 	'version' => '0.0.2',
 	'pid' => getmypid(),
 	'total_connections' => 0
@@ -42,11 +45,6 @@ function verbose( $msg ) {
 	}
 
 	echo trim( $msg ) . "\n";
-}
-
-function since_start() {
-	global $stats;
-	return time() - $stats['start_time'];
 }
 
 function bump_stat( string $stat ) {
@@ -224,7 +222,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
-			$conn->send( 'STAT uptime ' . since_start() );
+			$conn->send( 'STAT uptime ' . time() - MAR_START_TIME );
 			$conn->send( 'STAT time ' . time() );
 
 			foreach ( $stats as $k => $v ) {
