@@ -37,11 +37,9 @@ foreach ( $argv as $arg_option ) {
 function verbose( $msg ) {
 	global $options;
 
-	if ( (int) $options['verbose'] !== 1 ) {
-		return;
+	if ( $options['verbose'] === 1 ) {
+		echo trim( $msg ) . "\n";
 	}
-
-	echo trim( $msg ) . "\n";
 }
 
 function since_start() {
