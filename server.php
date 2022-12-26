@@ -19,6 +19,7 @@ require_once __DIR__ . '/lib/storage/sqlite.php';
 $options = [
 	'verbose' => 0, // 0 or 1
 	'port' => 11211,
+	'name' => 'Marmerine',
 ];
 
 foreach ( $argv as $arg_option ) {
@@ -62,6 +63,7 @@ function bump_stat( string $stat ) {
 
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
+$server->name = $options['name'] ?? 'Marmerine';
 
 $server->onConnect = function ( TcpConnection $conn ) {
 	bump_stat( 'total_connections' );
