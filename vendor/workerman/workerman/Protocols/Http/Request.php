@@ -520,6 +520,9 @@ class Request
     {
         $file = [];
         $boundary = "\r\n$boundary";
+        if (\strlen($this->_buffer) < $section_start_offset) {
+            return 0;
+        }
         $section_end_offset = \strpos($this->_buffer, $boundary, $section_start_offset);
         if (!$section_end_offset) {
             return 0;
@@ -562,7 +565,7 @@ class Request
                             'tmp_name' => $tmp_file,
                             'size' => $size,
                             'error' => $error,
-                            'type' => null,
+                            'type' => '',
                         ];
                         break;
                     } // Is post field.
