@@ -2,10 +2,10 @@
 declare( strict_types = 1 );
 
 
-define('MAR_START_TIME', time());
+define( 'MARMERINE_START_TIME', time() );
 
 $stats = [
-	'start_time' => MAR_START_TIME,
+	'start_time' => MARMERINE_START_TIME,
 	'version' => '0.0.2',
 	'pid' => getmypid(),
 	'total_connections' => 0
@@ -222,7 +222,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
-			$conn->send( 'STAT uptime ' . time() - MAR_START_TIME );
+			$conn->send( 'STAT uptime ' . time() - MARMERINE_START_TIME );
 			$conn->send( 'STAT time ' . time() );
 
 			foreach ( $stats as $k => $v ) {
