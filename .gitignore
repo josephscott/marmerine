@@ -4,6 +4,9 @@
 # Workerman Log
 vendor/workerman/workerman.log
 
+# Vendor files
+vendor/*
+
 # Data files
 data/*
 !data/.gitignore
