@@ -1,8 +1,9 @@
 # Changelog
 
 ## ????
-- Bump workerman to 4.1.0
+- Bump workerman to 4.1.5
 - Bump phpstan to 1.8.0
+- Call time() instead of microtime() for uptime tracking - #3 @joanhey
 
 
 ## 0.0.3 - 2022-05-21

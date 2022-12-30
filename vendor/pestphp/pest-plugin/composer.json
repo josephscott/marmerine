@@ -15,7 +15,7 @@
     "type": "composer-plugin",
     "require": {
         "php": "^7.3 || ^8.0",
-        "composer-plugin-api": "^1.1 || ^2.0"
+        "composer-plugin-api": "^1.1.0 || ^2.0.0"
     },
     "conflict": {
         "pestphp/pest": "<1.0"
@@ -31,9 +31,9 @@
         }
     },
     "require-dev": {
-        "composer/composer": "^1.10.19",
-        "pestphp/pest-dev-tools": "dev-master",
-        "pestphp/pest": "^1.0"
+        "composer/composer": "^2.4.2",
+        "pestphp/pest-dev-tools": "^1.0.0",
+        "pestphp/pest": "^1.22.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

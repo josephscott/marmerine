@@ -3,8 +3,10 @@ declare( strict_types = 1 );
 
 const MARMERINE_VERSION = '0.0.4';
 
+define( 'MARMERINE_START_TIME', time() );
+
 $stats = [
-	'start_time' => (int) microtime( true ),
+	'start_time' => MARMERINE_START_TIME,
 	'version' => MARMERINE_VERSION,
 	'pid' => getmypid(),
 	'total_connections' => 0
@@ -44,12 +46,6 @@ function verbose( $msg ) {
 	}
 
 	echo trim( $msg ) . "\n";
-}
-
-function since_start() {
-	global $stats;
-	$since_start = ( (int) microtime( true ) ) - $stats['start_time'];
-	return $since_start;
 }
 
 function bump_stat( string $stat ) {
@@ -227,7 +223,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
-			$conn->send( 'STAT uptime ' . since_start() );
+			$conn->send( 'STAT uptime ' . time() - MARMERINE_START_TIME );
 			$conn->send( 'STAT time ' . time() );
 
 			foreach ( $stats as $k => $v ) {
