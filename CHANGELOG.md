@@ -5,6 +5,7 @@
 - Bump phpstan to 1.8.0
 - #3 @joanhey - Call time() instead of microtime() for uptime tracking - #3 @joanhey
 - #4 @joanhey - Track Marmerine version as a constant
+- #5 @joanhey - Use static anonymous functions, provides a small memory improvement
 
 
 ## 0.0.3 - 2022-05-21
