@@ -1,9 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
+const MARMERINE_VERSION = '0.0.4';
+
+define( 'MARMERINE_START_TIME', time() );
+
 $stats = [
-	'start_time' => (int) microtime( true ),
-	'version' => '0.0.2',
+	'start_time' => MARMERINE_START_TIME,
+	'version' => MARMERINE_VERSION,
 	'pid' => getmypid(),
 	'total_connections' => 0
 ];
@@ -44,12 +48,6 @@ function verbose( $msg ) {
 	echo trim( $msg ) . "\n";
 }
 
-function since_start() {
-	global $stats;
-	$since_start = ( (int) microtime( true ) ) - $stats['start_time'];
-	return $since_start;
-}
-
 function bump_stat( string $stat ) {
 	global $stats;
 
@@ -70,13 +68,13 @@ $server->onWorkerStart = static function() {
 	$storage->enable( 'WAL' );
 };
 
-$server->onConnect = function ( TcpConnection $conn ) {
+$server->onConnect = static function ( TcpConnection $conn ) {
 	bump_stat( 'total_connections' );
 };
 
-$server->onMessage = function ( TcpConnection $conn, object $data ) {
+$server->onMessage = static function ( TcpConnection $conn, object $data ) {
 	global $storage;
-
+  
 	bump_stat( "cmd_{$data->command}" );
 
 	switch ( $data->command ) {
@@ -230,7 +228,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
-			$conn->send( 'STAT uptime ' . since_start() );
+			$conn->send( 'STAT uptime ' . time() - MARMERINE_START_TIME );
 			$conn->send( 'STAT time ' . time() );
 
 			foreach ( $stats as $k => $v ) {
@@ -250,13 +248,12 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'version':
-			global $stats;
-			$conn->send( $stats['version'] );
+			$conn->send( MARMERINE_VERSION );
 			return;
 	}
 };
 
-$server->onClose = function ( TcpConnection $conn ) {
+$server->onClose = static function ( TcpConnection $conn ) {
 };
 
 Worker::runAll();

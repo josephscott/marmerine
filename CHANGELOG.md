@@ -1,8 +1,11 @@
 # Changelog
 
 ## ????
-- Bump workerman to 4.1.0
+- Bump workerman to 4.1.5
 - Bump phpstan to 1.8.0
+- [#3](https://github.com/josephscott/marmerine/pull/3) @joanhey - Call time() instead of microtime() for uptime tracking
+- [#4](https://github.com/josephscott/marmerine/pull/4) @joanhey - Track Marmerine version as a constant
+- [#5](https://github.com/josephscott/marmerine/pull/5) @joanhey - Use static anonymous functions, provides a small memory improvement
 
 
 ## 0.0.3 - 2022-05-21
