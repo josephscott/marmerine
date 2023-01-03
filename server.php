@@ -61,11 +61,11 @@ function bump_stat( string $stat ) {
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
 
-$server->onConnect = function ( TcpConnection $conn ) {
+$server->onConnect = static function ( TcpConnection $conn ) {
 	bump_stat( 'total_connections' );
 };
 
-$server->onMessage = function ( TcpConnection $conn, object $data ) {
+$server->onMessage = static function ( TcpConnection $conn, object $data ) {
 #	$storage = new Memcached_Storage( ':memory:' );
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
 	$storage->enable( 'WAL' );
@@ -248,7 +248,7 @@ $server->onMessage = function ( TcpConnection $conn, object $data ) {
 	}
 };
 
-$server->onClose = function ( TcpConnection $conn ) {
+$server->onClose = static function ( TcpConnection $conn ) {
 };
 
 Worker::runAll();
