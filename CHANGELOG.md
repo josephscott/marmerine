@@ -3,7 +3,7 @@
 ## ????
 - Bump workerman to 4.1.5
 - Bump phpstan to 1.8.0
-- #3 @joanhey - Call time() instead of microtime() for uptime tracking - #3 @joanhey
+- #3 @joanhey - Call time() instead of microtime() for uptime tracking
 - #4 @joanhey - Track Marmerine version as a constant
 - #5 @joanhey - Use static anonymous functions, provides a small memory improvement
 
