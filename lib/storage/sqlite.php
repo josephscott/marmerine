@@ -2,13 +2,14 @@
 declare( strict_types = 1 );
 
 class Memcached_Storage {
-	protected static SQLite3|bool $db = false;
+	protected static SQLite3 $db ;
 
 	public function __construct( string $db ) {
-		if ( self::$db === false ) {
-			self::$db = new SQLite3( $db );
+		if ( isset(self::$db) ) {
+			return;
 		}
 
+		self::$db = new SQLite3( $db );
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"';
 		verbose( "SQLite: $sql" );
 		$table_check = self::$db->querySingle( $sql );
