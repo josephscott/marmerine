@@ -26,6 +26,7 @@ use \Exception;
  * Worker class
  * A container for listening ports
  */
+#[\AllowDynamicProperties]
 class Worker
 {
     /**
@@ -33,7 +34,7 @@ class Worker
      *
      * @var string
      */
-    const VERSION = '4.1.0';
+    const VERSION = '4.1.5';
 
     /**
      * Status starting.
@@ -548,11 +549,13 @@ class Worker
     {
         static::checkSapiEnv();
         static::init();
+        static::lock();
         static::parseCommand();
         static::daemonize();
         static::initWorkers();
         static::installSignal();
         static::saveMasterPid();
+        static::lock(\LOCK_UN);
         static::displayUI();
         static::forkWorkers();
         static::resetStd();
@@ -629,24 +632,25 @@ class Worker
      *
      * @return void
      */
-    protected static function lock()
+    protected static function lock($flag = \LOCK_EX)
     {
-        $fd = \fopen(static::$_startFile, 'r');
-        if ($fd && !flock($fd, LOCK_EX)) {
-            static::log('Workerman['.static::$_startFile.'] already running.');
-            exit;
+        static $fd;
+        if (\DIRECTORY_SEPARATOR !== '/') {
+            return;
         }
-    }
-
-    /**
-     * Unlock.
-     *
-     * @return void
-     */
-    protected static function unlock()
-    {
-        $fd = \fopen(static::$_startFile, 'r');
-        $fd && flock($fd, \LOCK_UN);
+        $lock_file = static::$pidFile . '.lock';
+        $fd = $fd ?: \fopen($lock_file, 'a+');
+        if ($fd) {
+            flock($fd, $flag);
+            if ($flag === \LOCK_UN) {
+                fclose($fd);
+                $fd = null;
+                clearstatcache();
+                if (\is_file($lock_file)) {
+                    unlink($lock_file);
+                }
+            }
+        }
     }
 
     /**
@@ -1214,7 +1218,7 @@ class Worker
             case \SIGINT:
             case \SIGTERM:
             case \SIGHUP:
-            case \SIGTSTP;
+            case \SIGTSTP:
                 static::$_gracefulStop = false;
                 static::stopAll();
                 break;
@@ -1300,7 +1304,7 @@ class Worker
             $STDOUT = \fopen(static::$stdoutFile, "a");
             $STDERR = \fopen(static::$stdoutFile, "a");
             // Fix standard output cannot redirect of PHP 8.1.8's bug
-            if (\posix_isatty(2)) {
+            if (\function_exists('posix_isatty') && \posix_isatty(2)) {
                 \ob_start(function ($string) {
                     \file_put_contents(static::$stdoutFile, $string, FILE_APPEND);
                 }, 1);
@@ -1606,7 +1610,7 @@ class Worker
         // Get uid.
         $user_info = \posix_getpwnam($this->user);
         if (!$user_info) {
-            static::log("Warning: User {$this->user} not exsits");
+            static::log("Warning: User {$this->user} not exists");
             return;
         }
         $uid = $user_info['uid'];
@@ -1614,7 +1618,7 @@ class Worker
         if ($this->group) {
             $group_info = \posix_getgrnam($this->group);
             if (!$group_info) {
-                static::log("Warning: Group {$this->group} not exsits");
+                static::log("Warning: Group {$this->group} not exists");
                 return;
             }
             $gid = $group_info['gid'];
