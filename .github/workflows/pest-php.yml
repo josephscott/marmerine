@@ -1,0 +1,31 @@
+name: Run Pest tests
+
+on: [ push, pull_request ]
+
+env:
+  ## Sets environment variables
+  MARMERINE_PORT: 11212
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install PHP version
+      uses: shivammathur/setup-php@v2
+      with:
+        #php-version: '8.1'
+        extensions: memcached, sqlite
+        #extensions: memcached, sqlite, event
+
+    - name: Install dependencies
+      run: composer install
+    - name: Check code with phpstan
+      run: vendor/bin/phpstan
+
+    - name: Run Marmerine
+      run: php server.php start -d --port=${{env.MARMERINE_PORT}}
+    - name: Execute PestPHP tests
+      run: vendor/bin/pest
