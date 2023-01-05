@@ -60,7 +60,7 @@ function bump_stat( string $stat ) {
 
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
-$server->name = 'Marmerine';
+$server->name = 'Marmerine v'.MARMERINE_VERSION;
 
 $server->onConnect = static function ( TcpConnection $conn ) {
 	bump_stat( 'total_connections' );
