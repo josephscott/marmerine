@@ -5,7 +5,7 @@ class Memcached_Storage {
 	protected static SQLite3 $db;
 
 	public function __construct( string $db ) {
-		if ( isset(self::$db) ) {
+		if ( isset( self::$db ) ) {
 			return;
 		}
 
