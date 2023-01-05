@@ -230,7 +230,7 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
-			$conn->send( 'STAT uptime ' . time() - MARMERINE_START_TIME );
+			$conn->send( 'STAT uptime ' . ( time() - MARMERINE_START_TIME ) );
 			$conn->send( 'STAT time ' . time() );
 
 			foreach ( $stats as $k => $v ) {
