@@ -4,6 +4,10 @@
 # Workerman Log
 vendor/workerman/workerman.log
 
+# Vendor files
+vendor/*
+composer.lock
+
 # Data files
 data/*
 !data/.gitignore
