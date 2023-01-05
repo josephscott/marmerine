@@ -34,6 +34,14 @@ foreach ( $argv as $arg_option ) {
 	list( $arg_name, $arg_value ) = explode( '=', $arg_option );
 
 	if ( isset( $options[$arg_name] ) ) {
+		// Options that expect integers
+		if (
+			$arg_name === 'verbose'
+			|| $arg_name === 'port'
+		) {
+			$arg_value = (int) $arg_value;
+		}
+
 		$options[$arg_name] = $arg_value;
 	}
 }
@@ -41,11 +49,9 @@ foreach ( $argv as $arg_option ) {
 function verbose( $msg ) {
 	global $options;
 
-	if ( (int) $options['verbose'] !== 1 ) {
-		return;
+	if ( $options['verbose'] === 1 ) {
+		echo trim( $msg ) . "\n";
 	}
-
-	echo trim( $msg ) . "\n";
 }
 
 function bump_stat( string $stat ) {

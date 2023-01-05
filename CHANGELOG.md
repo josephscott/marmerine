@@ -7,6 +7,7 @@
 - [#4](https://github.com/josephscott/marmerine/pull/4) @joanhey - Track Marmerine version as a constant
 - [#5](https://github.com/josephscott/marmerine/pull/5) @joanhey - Use static anonymous functions, provides a small memory improvement
 - [#8](https://github.com/josephscott/marmerine/pull/8) @joanhey - Set the workerman name
+- [#7](https://github.com/josephscott/marmerine/pull/7) @joanhey - Remove int casting from verbose()
 
 
 ## 0.0.3 - 2022-05-21
