@@ -138,7 +138,7 @@ SQL;
 		return self::$db->exec( $sql );
 	}
 
-	public function get( array $keys ): mixed {
+	public function get( array $keys ): array {
 		$sql = 'SELECT * FROM storage WHERE "key" IN ( ';
 		foreach ( $keys as $i => $k ) {
 			$sql .= ":key{$i}, ";
