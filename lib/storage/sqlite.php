@@ -183,7 +183,7 @@ SQL;
 			$new_value
 		);
 
-		return ( $results === true ) ? $new_value : false;
+		return $results ? $new_value : false;
 	}
 
 	public function prepend( string $key, int $flags, int $exptime, string|int $value ): bool {
