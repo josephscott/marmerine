@@ -115,9 +115,7 @@ SQL;
 		verbose( "SQLite: {$query->getSQL( true )}" );
 		$result = $query->execute();
 
-		return ( $result !== false
-				&& self::$db->changes() === 1
-		);
+		return ( $result !== false && self::$db->changes() === 1 );
 	}
 
 	public function decr( string $key, int $value): mixed {
