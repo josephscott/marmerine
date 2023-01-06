@@ -9,6 +9,7 @@
 - [#8](https://github.com/josephscott/marmerine/pull/8) @joanhey - Set the workerman name
 - [#7](https://github.com/josephscott/marmerine/pull/7) @joanhey - Remove int casting from verbose()
 - [#9](https://github.com/josephscott/marmerine/pull/9) @joanhey - Test file naming style changes
+- Set a busy timeout for the SQLite database, and always enable WAL
 
 
 ## 0.0.3 - 2022-05-21
