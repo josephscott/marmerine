@@ -104,8 +104,7 @@ SQL;
 			return false;
 		}
 
-		$results = $this->set( $key, $flags, $exptime, "{$results[0]['value']}$value" );
-		return $results;
+		return $this->set( $key, $flags, $exptime, "{$results[0]['value']}$value" );
 	}
 
 	public function cas( string $key, int $flags, int $exptime, string|int $value, int $cas ): bool {
@@ -154,8 +153,7 @@ SQL;
 	public function flush_all(): bool {
 		$sql = 'DELETE FROM storage';
 		verbose( "SQLite: $sql" );
-		$result = self::$db->exec( $sql );
-		return $result;
+		return self::$db->exec( $sql );
 	}
 
 	public function get( array $keys ): mixed {
@@ -217,8 +215,7 @@ SQL;
 			return false;
 		}
 
-		$results = $this->set( $key, $flags, $exptime, "$value{$results[0]['value']}" );
-		return $results;
+		return $this->set( $key, $flags, $exptime, "$value{$results[0]['value']}" );
 	}
 
 	public function replace( string $key, int $flags, int $exptime, string|int $value ): bool {
@@ -227,8 +224,7 @@ SQL;
 			return false;
 		}
 
-		$result = $this->set( $key, $flags, $exptime, $value );
-		return $result;
+		return $this->set( $key, $flags, $exptime, $value );
 	}
 
 	public function set( string $key, int $flags, int $exptime, string|int $value ): bool {
@@ -255,8 +251,7 @@ SQL;
 		$result = $query->execute();
 
 		if ( $result !== false ) {
-			$row = $result->fetchArray( SQLITE3_ASSOC );
-			return $row['curr_items'];
+			return $result->fetchArray( SQLITE3_ASSOC ) ['curr_items'];
 		}
 
 		return false;
@@ -268,16 +263,11 @@ SQL;
 			return false;
 		}
 
-		$result = $this->set(
+		return $this->set(
 			$key,
 			$current[0]['flags'],
 			$exptime,
 			$current[0]['value']
 		);
-		if ( $result !== false ) {
-			return true;
-		}
-
-		return false;
 	}
 } 
