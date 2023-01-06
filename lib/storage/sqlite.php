@@ -54,7 +54,7 @@ class Memcached_Storage {
 SQL;
 
 			verbose( "SQLite: $sql" );
-			$create = self::$db->exec( $sql );
+			self::$db->exec( $sql );
 		}
 	}
 
