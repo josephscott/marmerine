@@ -251,6 +251,10 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 		case 'version':
 			$conn->send( MARMERINE_VERSION );
 			return;
+
+		// Command not suported
+		default:
+			$conn->send( 'ERROR' );
 	}
 };
 
