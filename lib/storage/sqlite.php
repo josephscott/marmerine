@@ -113,9 +113,8 @@ SQL;
 		$query->bindValue( ':cas', $cas, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		verbose( "SQLite: {$query->getSQL( true )}" );
-		$result = $query->execute();
 
-		return ( $result !== false && self::$db->changes() === 1 );
+		return ( $query->execute() !== false && self::$db->changes() === 1 );
 	}
 
 	public function decr( string $key, int $value): mixed {
