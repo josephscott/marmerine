@@ -115,14 +115,9 @@ SQL;
 		verbose( "SQLite: {$query->getSQL( true )}" );
 		$result = $query->execute();
 
-		if (
-			$result !== false
-			&& self::$db->changes() === 1
-		) {
-			return true;
-		}
-
-		return false;
+		return ( $result !== false
+				&& self::$db->changes() === 1
+		);
 	}
 
 	public function decr( string $key, int $value): mixed {
@@ -191,11 +186,7 @@ SQL;
 			$new_value
 		);
 
-		if ( $results === true ) {
-			return $new_value;
-		}
-
-		return false;
+		return ( $results === true ) ? $new_value : false;
 	}
 
 	public function prepend( string $key, int $flags, int $exptime, string|int $value ): bool {
