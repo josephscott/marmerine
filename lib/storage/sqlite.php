@@ -62,6 +62,7 @@ SQL;
 		$query = self::$db->prepare( 'DELETE FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
 		verbose( "SQLite: {$query->getSQL( true )}" );
+		
 		return (bool) $query->execute();
 	}
 
@@ -83,8 +84,8 @@ SQL;
 		$query->bindValue( ':cas', 1, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		verbose( "SQLite: {$query->getSQL( true )}" );
-		return (bool) $query->execute();
 
+		return (bool) $query->execute();
 	}
 
 	public function append( string $key, int $flags, int $exptime, string|int $value ): bool {
@@ -213,8 +214,8 @@ SQL;
 		$query->bindValue( ':cas', 1, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		verbose( "SQLite: {$query->getSQL( true )}" );
-		return (bool) $query->execute();
 
+		return (bool) $query->execute();
 	}
 
 	public function stat_curr_items() {
