@@ -100,7 +100,7 @@ SQL;
 
 	public function append( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$results = $this->get( [ $key ] );
-		if ( count( $results ) === 0 ) {
+		if ( [] === $results ) {
 			return false;
 		}
 
@@ -142,7 +142,7 @@ SQL;
 
 	public function delete( string $key ): bool {
 		$results = $this->get( [ $key ] );
-		if ( count( $results ) === 0 ) {
+		if ( [] === $results ) {
 			return false;
 		}
 
@@ -185,7 +185,7 @@ SQL;
 
 	public function incr( string $key, int $value): mixed {
 		$results = $this->get( [ $key ] );
-		if ( count( $results ) === 0 ) {
+		if ( [] === $results ) {
 			return false;
 		}
 
@@ -211,7 +211,7 @@ SQL;
 
 	public function prepend( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$results = $this->get( [ $key ] );
-		if ( count( $results ) === 0 ) {
+		if ( [] === $results ) {
 			return false;
 		}
 
@@ -220,7 +220,7 @@ SQL;
 
 	public function replace( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$current = $this->get( [ $key ] );
-		if ( count( $current ) === 0 ) {
+		if ( [] === $current ) {
 			return false;
 		}
 
@@ -259,7 +259,7 @@ SQL;
 
 	public function touch( string $key, int $exptime ): bool {
 		$current = $this->get( [ $key ] );
-		if ( count( $current ) === 0 ) {
+		if ( [] === $current ) {
 			return false;
 		}
 
