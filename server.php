@@ -34,6 +34,14 @@ foreach ( $argv as $arg_option ) {
 	list( $arg_name, $arg_value ) = explode( '=', $arg_option );
 
 	if ( isset( $options[$arg_name] ) ) {
+		// Options that expect integers
+		if (
+			$arg_name === 'verbose'
+			|| $arg_name === 'port'
+		) {
+			$arg_value = (int) $arg_value;
+		}
+
 		$options[$arg_name] = $arg_value;
 	}
 }
@@ -41,11 +49,9 @@ foreach ( $argv as $arg_option ) {
 function verbose( $msg ) {
 	global $options;
 
-	if ( (int) $options['verbose'] !== 1 ) {
-		return;
+	if ( $options['verbose'] === 1 ) {
+		echo trim( $msg ) . "\n";
 	}
-
-	echo trim( $msg ) . "\n";
 }
 
 function bump_stat( string $stat ) {
@@ -60,6 +66,7 @@ function bump_stat( string $stat ) {
 
 $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
+$server->name = 'Marmerine v'.MARMERINE_VERSION;
 
 $server->onWorkerStart = static function() {
 	global $storage;
@@ -73,8 +80,9 @@ $server->onConnect = static function ( TcpConnection $conn ) {
 };
 
 $server->onMessage = static function ( TcpConnection $conn, object $data ) {
+
 	global $storage;
-  
+
 	bump_stat( "cmd_{$data->command}" );
 
 	switch ( $data->command ) {
@@ -228,7 +236,7 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 				return;
 			}
 
-			$conn->send( 'STAT uptime ' . time() - MARMERINE_START_TIME );
+			$conn->send( 'STAT uptime ' . ( time() - MARMERINE_START_TIME ) );
 			$conn->send( 'STAT time ' . time() );
 
 			foreach ( $stats as $k => $v ) {
@@ -250,6 +258,10 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 		case 'version':
 			$conn->send( MARMERINE_VERSION );
 			return;
+
+		// Command not suported
+		default:
+			$conn->send( 'ERROR' );
 	}
 };
 

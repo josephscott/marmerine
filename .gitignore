@@ -1,9 +1,14 @@
 # PHPUnit / Pest
 .phpunit.result.cache
-
+phpunit.xml
 # Workerman Log
 vendor/workerman/workerman.log
+
+# Vendor files
+vendor/*
+composer.lock
 
 # Data files
 data/*
 !data/.gitignore
+phpstan.neon
