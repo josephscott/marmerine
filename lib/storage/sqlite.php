@@ -193,8 +193,7 @@ SQL;
 	}
 
 	public function replace( string $key, int $flags, int $exptime, string|int $value ): bool {
-		$current = $this->get( [ $key ] );
-		if ( [] === $current ) {
+		if ( [] === $this->get( [ $key ] ) ) {
 			return false;
 		}
 
