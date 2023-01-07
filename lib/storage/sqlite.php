@@ -62,7 +62,7 @@ SQL;
 		$query = self::$db->prepare( 'DELETE FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
 		verbose( "SQLite: {$query->getSQL( true )}" );
-		
+
 		return (bool) $query->execute();
 	}
 
@@ -167,11 +167,7 @@ SQL;
 
 	public function incr( string $key, int $value): mixed {
 		$results = $this->get( [ $key ] );
-		if ( [] === $results ) {
-			return false;
-		}
-
-		if ( !ctype_digit( $results[0]['value'] ) ) {
+		if ( [] === $results || !ctype_digit( $results[0]['value'] )) {
 			return false;
 		}
 
