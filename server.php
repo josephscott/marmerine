@@ -75,7 +75,6 @@ $server->onConnect = static function ( TcpConnection $conn ) {
 $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 #	$storage = new Memcached_Storage( ':memory:' );
 	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
-	$storage->enable( 'WAL' );
 
 	bump_stat( "cmd_{$data->command}" );
 
@@ -252,6 +251,10 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 		case 'version':
 			$conn->send( MARMERINE_VERSION );
 			return;
+
+		// Command not suported
+		default:
+			$conn->send( 'ERROR' );
 	}
 };
 

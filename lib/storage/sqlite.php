@@ -10,6 +10,23 @@ class Memcached_Storage {
 		}
 
 		self::$db = new SQLite3( $db );
+
+		//
+		// These are special case items that must be done before
+		// any queries happen.
+		//
+
+		// Re-try when we run into a lock situation
+		self::$db->busyTimeout( 1000 );
+
+		// Enable Write-Ahead Logging
+		// https://www.sqlite.org/wal.html
+		$sql = 'PRAGMA journal_mode=WAL';
+		verbose( "SQLite: $sql" );
+		self::$db->exec( $sql );
+
+		// After this point queries can happen
+
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"';
 		verbose( "SQLite: $sql" );
 		$table_check = self::$db->querySingle( $sql );
@@ -132,17 +149,6 @@ SQL;
 
 		$this->_remove_key( $key );
 		return true;
-	}
-
-	public function enable( string $option ) {
-		static $wal = false;
-
-		if ( $option === 'WAL' && $wal !== true ) {
-			$wal = true;
-			$sql = 'PRAGMA main.journal_mode=WAL';
-			verbose( "SQLite: $sql" );
-			self::$db->exec( $sql );
-		}
 	}
 
 	public function flush_all(): bool {

@@ -1,4 +1,4 @@
-name: Run Pest tests
+name: Marmerine Pest Tests
 
 on: [ push, pull_request ]
 
@@ -20,12 +20,13 @@ jobs:
         extensions: memcached, sqlite
         #extensions: memcached, sqlite, event
 
-    - name: Install dependencies
+    - name: Install Dependencies
       run: composer install
-    - name: Check code with phpstan
+
+    - name: Run PHPStan 
       run: vendor/bin/phpstan
 
-    - name: Run Marmerine
+    - name: Start Marmerine
       run: php server.php start -d --port=${{env.MARMERINE_PORT}}
-    - name: Execute PestPHP tests
+    - name: Run Pest Tests
       run: vendor/bin/pest
