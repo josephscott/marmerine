@@ -6,6 +6,6 @@ test( 'version', function() {
 	$first_key = array_key_first( $result );
 
 	expect( $result )->toBeArray();
-	$this->assertEquals( '127.0.0.1:11211', $first_key );
+	$this->assertEquals( '127.0.0.1:' . MARMERINE_PORT, $first_key );
 	expect( $result[$first_key] )->toBeString();
 } );
