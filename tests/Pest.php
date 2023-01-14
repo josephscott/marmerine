@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-define('MARMERINE_PORT', (int) getenv('MARMERINE_PORT') ?: 11211);
+define( 'MARMERINE_PORT', (int) getenv( 'MARMERINE_PORT' ) ?: 11211 );
 echo 'PORT: ' . MARMERINE_PORT . PHP_EOL;
 
 class MC {
