@@ -2,6 +2,9 @@ name: Marmerine Pest Tests
 
 on: [ push, pull_request ]
 
+env:
+  MARMERINE_PORT: 11212
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -22,7 +25,7 @@ jobs:
     - name: Run PHPStan 
       run: vendor/bin/phpstan
 
-    - name: Run Marmerine
-      run: php server.php start -d
+    - name: Start Marmerine
+      run: php server.php start -d --port=${{env.MARMERINE_PORT}}
     - name: Run Pest Tests
       run: vendor/bin/pest
