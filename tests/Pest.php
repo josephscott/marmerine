@@ -1,6 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
+define( 'MARMERINE_PORT', (int) getenv( 'MARMERINE_PORT' ) ?: 11211 );
+echo 'PORT: ' . MARMERINE_PORT . PHP_EOL;
+
 class MC {
 	public static $mc = false;
 
@@ -9,7 +12,7 @@ class MC {
 	public static function start() {
 		if ( self::$mc === false ) {
 			self::$mc = new Memcached();
-			self::$mc->addServer( '127.0.0.1', 11211 );
+			self::$mc->addServer( '127.0.0.1', MARMERINE_PORT );
 			self::$mc->flush();
 		}
 	}
