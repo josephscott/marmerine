@@ -11,6 +11,7 @@
 - [#9](https://github.com/josephscott/marmerine/pull/9) @joanhey - Test file naming style changes
 - Set a busy timeout for the SQLite database, and always enable WAL
 - [#12](https://github.com/josephscott/marmerine/pull/12) @joanhey - Send ERROR when a command is not supported
+- [#16](https://github.com/josephscott/marmerine/pull/16) @joanhey - Add Github action 
 
 
 ## 0.0.3 - 2022-05-21
