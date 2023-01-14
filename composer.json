@@ -9,7 +9,7 @@
 	},
 	"require-dev": {
 		"ext-memcached": "*",
-		"phpstan/phpstan": "1.8.0",
+		"phpstan/phpstan": "^1.7",
 		"pestphp/pest": "^1.21"
 	},
 	"suggest": {
