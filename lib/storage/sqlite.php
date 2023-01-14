@@ -30,6 +30,7 @@ class Memcached_Storage {
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"';
 		verbose( "SQLite: $sql" );
 		$table_check = self::$db->querySingle( $sql );
+		
 		if ( $table_check === null ) {
 			$sql = <<<SQL
 				CREATE TABLE IF NOT EXISTS 'storage' (
