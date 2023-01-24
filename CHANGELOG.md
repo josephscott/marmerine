@@ -13,6 +13,7 @@
 - [#12](https://github.com/josephscott/marmerine/pull/12) @joanhey - Send ERROR when a command is not supported
 - [#16](https://github.com/josephscott/marmerine/pull/16) @joanhey - Add Github action 
 - [#16](https://github.com/josephscott/marmerine/pull/16) @joanhey - Add ENV support for setting the port of the server to run tests against 
+- [#6](https://github.com/josephscott/marmerine/pull/6) @joanhey - Use Workerman "onWorkerStart" to create the storage object
 
 
 ## 0.0.3 - 2022-05-21
