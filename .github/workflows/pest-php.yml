@@ -3,6 +3,7 @@ name: Marmerine Pest Tests
 on: [ push, pull_request ]
 
 env:
+  ## Sets environment variables
   MARMERINE_PORT: 11212
 
 jobs:
