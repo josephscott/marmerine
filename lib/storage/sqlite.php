@@ -30,6 +30,7 @@ class Memcached_Storage {
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table" AND name="storage"';
 		verbose( "SQLite: $sql" );
 		$table_check = self::$db->querySingle( $sql );
+		
 		if ( $table_check === null ) {
 			$sql = <<<SQL
 				CREATE TABLE IF NOT EXISTS 'storage' (
@@ -54,7 +55,7 @@ class Memcached_Storage {
 SQL;
 
 			verbose( "SQLite: $sql" );
-			$create = self::$db->exec( $sql );
+			self::$db->exec( $sql );
 		}
 	}
 
@@ -62,13 +63,8 @@ SQL;
 		$query = self::$db->prepare( 'DELETE FROM storage WHERE "key" = :key' );
 		$query->bindValue( ':key', $key, SQLITE3_TEXT );
 		verbose( "SQLite: {$query->getSQL( true )}" );
-		$result = $query->execute();
 
-		if ( $result === false ) {
-			return false;
-		} else {
-			return true;
-		}
+		return (bool) $query->execute();
 	}
 
 	public function add( string $key, int $flags, int $exptime, string|int $value ): bool {
@@ -89,23 +85,17 @@ SQL;
 		$query->bindValue( ':cas', 1, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		verbose( "SQLite: {$query->getSQL( true )}" );
-		$result = $query->execute();
 
-		if ( $result !== false ) {
-			return true;
-		}
-
-		return false;
+		return (bool) $query->execute();
 	}
 
 	public function append( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$results = $this->get( [ $key ] );
-		if ( count( $results ) === 0 ) {
+		if ( [] === $results ) {
 			return false;
 		}
 
-		$results = $this->set( $key, $flags, $exptime, "{$results[0]['value']}$value" );
-		return $results;
+		return $this->set( $key, $flags, $exptime, "{$results[0]['value']}$value" );
 	}
 
 	public function cas( string $key, int $flags, int $exptime, string|int $value, int $cas ): bool {
@@ -125,16 +115,8 @@ SQL;
 		$query->bindValue( ':cas', $cas, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		verbose( "SQLite: {$query->getSQL( true )}" );
-		$result = $query->execute();
 
-		if (
-			$result !== false
-			&& self::$db->changes() === 1
-		) {
-			return true;
-		}
-
-		return false;
+		return ( $query->execute() !== false && self::$db->changes() === 1 );
 	}
 
 	public function decr( string $key, int $value): mixed {
@@ -143,7 +125,7 @@ SQL;
 
 	public function delete( string $key ): bool {
 		$results = $this->get( [ $key ] );
-		if ( count( $results ) === 0 ) {
+		if ( [] === $results ) {
 			return false;
 		}
 
@@ -154,11 +136,10 @@ SQL;
 	public function flush_all(): bool {
 		$sql = 'DELETE FROM storage';
 		verbose( "SQLite: $sql" );
-		$result = self::$db->exec( $sql );
-		return $result;
+		return self::$db->exec( $sql );
 	}
 
-	public function get( array $keys ): mixed {
+	public function get( array $keys ): array {
 		$sql = 'SELECT * FROM storage WHERE "key" IN ( ';
 		foreach ( $keys as $i => $k ) {
 			$sql .= ":key{$i}, ";
@@ -187,11 +168,7 @@ SQL;
 
 	public function incr( string $key, int $value): mixed {
 		$results = $this->get( [ $key ] );
-		if ( count( $results ) === 0 ) {
-			return false;
-		}
-
-		if ( !ctype_digit( $results[0]['value'] ) ) {
+		if ( [] === $results || !ctype_digit( $results[0]['value'] )) {
 			return false;
 		}
 
@@ -204,31 +181,24 @@ SQL;
 			$new_value
 		);
 
-		if ( $results === true ) {
-			return $new_value;
-		}
-
-		return false;
+		return $results ? $new_value : false;
 	}
 
 	public function prepend( string $key, int $flags, int $exptime, string|int $value ): bool {
 		$results = $this->get( [ $key ] );
-		if ( count( $results ) === 0 ) {
+		if ( [] === $results ) {
 			return false;
 		}
 
-		$results = $this->set( $key, $flags, $exptime, "$value{$results[0]['value']}" );
-		return $results;
+		return $this->set( $key, $flags, $exptime, "$value{$results[0]['value']}" );
 	}
 
 	public function replace( string $key, int $flags, int $exptime, string|int $value ): bool {
-		$current = $this->get( [ $key ] );
-		if ( count( $current ) === 0 ) {
+		if ( [] === $this->get( [ $key ] ) ) {
 			return false;
 		}
 
-		$result = $this->set( $key, $flags, $exptime, $value );
-		return $result;
+		return $this->set( $key, $flags, $exptime, $value );
 	}
 
 	public function set( string $key, int $flags, int $exptime, string|int $value ): bool {
@@ -240,13 +210,8 @@ SQL;
 		$query->bindValue( ':cas', 1, SQLITE3_INTEGER );
 		$query->bindValue( ':value', $value, SQLITE3_BLOB );
 		verbose( "SQLite: {$query->getSQL( true )}" );
-		$result = $query->execute();
 
-		if ( $result !== false ) {
-			return true;
-		}
-
-		return false;
+		return (bool) $query->execute();
 	}
 
 	public function stat_curr_items() {
@@ -255,8 +220,7 @@ SQL;
 		$result = $query->execute();
 
 		if ( $result !== false ) {
-			$row = $result->fetchArray( SQLITE3_ASSOC );
-			return $row['curr_items'];
+			return $result->fetchArray( SQLITE3_ASSOC ) ['curr_items'];
 		}
 
 		return false;
@@ -264,20 +228,15 @@ SQL;
 
 	public function touch( string $key, int $exptime ): bool {
 		$current = $this->get( [ $key ] );
-		if ( count( $current ) === 0 ) {
+		if ( [] === $current ) {
 			return false;
 		}
 
-		$result = $this->set(
+		return $this->set(
 			$key,
 			$current[0]['flags'],
 			$exptime,
 			$current[0]['value']
 		);
-		if ( $result !== false ) {
-			return true;
-		}
-
-		return false;
 	}
 } 
