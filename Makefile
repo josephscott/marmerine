@@ -26,3 +26,19 @@ tests: ## Run Pest tests
 	@echo
 	bash -c "./vendor/bin/pest"
 	@echo
+
+# ### #
+
+.PHONY: server-start
+server-start:
+	@echo
+	@echo "--> Server: start"
+	@echo
+	php server.php start -d
+
+.PHONY: server-stop
+server-stop:
+	@echo
+	@echo "--> Server: stop"
+	@echo
+	php server.php stop
