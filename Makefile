@@ -5,16 +5,24 @@ HERE := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 # https://mwop.net/blog/2023-12-11-advent-makefile.html
 ##@ help
 help:  ## Display this help
-	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-40s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .PHONY: all
-all: tests
+all: analyze tests ## (default) analyze & tests
 
 # ### #
 
-.PHONY: tests ## Pest tests
-tests:
+.PHONY: analyze
+analyze: ## Static analysis with PHPStan
+	@echo
+	@echo "--> Analyze: PHPStan"
+	@echo
+	vendor/bin/phpstan
+
+.PHONY: tests
+tests: ## Run Pest tests
 	@echo
 	@echo "--> Tests: Pest"
 	@echo
 	bash -c "./vendor/bin/pest"
+	@echo
