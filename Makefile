@@ -18,13 +18,18 @@ analyze: ## Static analysis with PHPStan
 	@echo "--> Analyze: PHPStan"
 	@echo
 	vendor/bin/phpstan
+	@echo
 
 .PHONY: tests
-tests: ## Run Pest tests
+tests: server-start ## Run Pest tests
 	@echo
 	@echo "--> Tests: Pest"
 	@echo
-	bash -c "./vendor/bin/pest"
+	bash -c "./vendor/bin/pest || php server.php stop"
+	@echo
+	@echo "--> Server: stop"
+	@echo
+	php server.php stop
 	@echo
 
 # ### #
@@ -35,6 +40,7 @@ server-start:
 	@echo "--> Server: start"
 	@echo
 	php server.php start -d
+	@echo
 
 .PHONY: server-stop
 server-stop:
@@ -42,3 +48,4 @@ server-stop:
 	@echo "--> Server: stop"
 	@echo
 	php server.php stop
+	@echo
