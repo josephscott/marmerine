@@ -8,7 +8,7 @@ help:  ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .PHONY: all
-all: analyze tests ## (default) analyze & tests
+all: analyze lint tests ## (default) analyze & tests
 
 # ### #
 
@@ -18,6 +18,16 @@ analyze: ## Static analysis with PHPStan
 	@echo "--> Analyze: PHPStan"
 	@echo
 	vendor/bin/phpstan
+	@echo
+
+.PHONY: lint
+lint: ## Lint check
+	@echo
+	@echo "--> Lint"
+	@echo
+	php -l server.php
+	php -l lib/protocols/memcached-text.php
+	php -l lib/storage/sqlite.php
 	@echo
 
 .PHONY: tests

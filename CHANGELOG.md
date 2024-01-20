@@ -4,6 +4,7 @@
 - Bump workerman to 4.1.*
 - Bump phpstan to 1.10.*
 - Bump pest to 2.30.*
+- Add lint checking for PHP files
 - [#3](https://github.com/josephscott/marmerine/pull/3) @joanhey - Call time() instead of microtime() for uptime tracking
 - [#4](https://github.com/josephscott/marmerine/pull/4) @joanhey - Track Marmerine version as a constant
 - [#5](https://github.com/josephscott/marmerine/pull/5) @joanhey - Use static anonymous functions, provides a small memory improvement
