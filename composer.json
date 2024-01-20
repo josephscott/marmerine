@@ -10,7 +10,7 @@
 	"require-dev": {
 		"ext-memcached": "*",
 		"phpstan/phpstan": "^1.10",
-		"pestphp/pest": "^1.21"
+		"pestphp/pest": "^2.30"
 	},
 	"suggest": {
 		"ext-event": "Better for PHP workerman performance"
