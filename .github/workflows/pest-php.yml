@@ -29,4 +29,4 @@ jobs:
     - name: Start Marmerine
       run: php server.php start -d --port=${{env.MARMERINE_PORT}}
     - name: Run Pest Tests
-      run: vendor/bin/pest
+      run: vendor/bin/pest --colors=always
