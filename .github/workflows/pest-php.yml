@@ -23,7 +23,7 @@ jobs:
       run: composer install
 
     - name: Run PHPStan 
-      #run: vendor/bin/phpstan
+      run: vendor/bin/phpstan
 
     - name: Start Marmerine
       run: php server.php start -d --port=${{env.MARMERINE_PORT}}
