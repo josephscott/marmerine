@@ -201,7 +201,7 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 				$conn->send( 'CLIENT_ERROR cannot increment or decrement non-numeric value' );
 			} else {
 				bump_stat( "{$data->command}_hits" );
-				$conn->send( $results );
+				$conn->send( (string) $results );
 			}
 
 			return;

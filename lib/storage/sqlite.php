@@ -155,7 +155,7 @@ SQL;
 		$sql = 'DELETE FROM storage';
 		verbose( "SQLite: $sql" );
 		$result = self::$db->exec( $sql );
-		return $result;
+		return $result !== false;
 	}
 
 	public function get( array $keys ): mixed {
@@ -191,16 +191,27 @@ SQL;
 			return false;
 		}
 
-		if ( !ctype_digit( $results[0]['value'] ) ) {
+		$current_value = $results[0]['value'];
+
+		// Check if the value is numeric (handles both strings and integers, positive and negative)
+		if ( !is_numeric( $current_value ) ) {
 			return false;
 		}
 
-		$new_value = $results[0]['value'] + $value;
+		$new_value = (int)$current_value + $value;
+
+		// Ensure non-negative result (memcached behavior)
+		if ( $new_value < 0 ) {
+			$new_value = 0;
+		}
+
+		// Use the original exptime directly (it's stored as absolute time)
+		$original_exptime = $results[0]['exptime'] - time();
 
 		$results = $this->set(
 			$key,
 			$results[0]['flags'],
-			$results[0]['exptime'],
+			$original_exptime,
 			$new_value
 		);
 
