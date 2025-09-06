@@ -1,7 +1,10 @@
 # PHPUnit / Pest
 .phpunit.result.cache
 phpunit.xml
+
 # Workerman Log
+workerman.log
+workerman.server.php.pid
 vendor/workerman/workerman.log
 
 # Vendor files
