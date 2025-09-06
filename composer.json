@@ -5,7 +5,7 @@
 	"require": {
 		"php": ">=8.1.0",
 		"ext-sqlite3": "*",
-		"workerman/workerman": "^4.1"
+		"workerman/workerman": "^5.1"
 	},
 	"require-dev": {
 		"ext-memcached": "*",
