@@ -35,13 +35,7 @@ foreach ( $argv as $arg_option ) {
 
 	if ( isset( $options[$arg_name] ) ) {
 		// Options that expect integers
-		if (
-			$arg_name === 'verbose'
-			|| $arg_name === 'port'
-		) {
-			$arg_value = (int) $arg_value;
-		}
-
+		$arg_value = (int) $arg_value;
 		$options[$arg_name] = $arg_value;
 	}
 }
