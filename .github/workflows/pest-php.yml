@@ -1,0 +1,32 @@
+name: Marmerine Pest Tests
+
+on: [ push, pull_request ]
+
+env:
+  MARMERINE_PORT: 11212
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install PHP version
+      uses: shivammathur/setup-php@v2
+      with:
+        #php-version: '8.1'
+        extensions: memcached, sqlite
+        #extensions: memcached, sqlite, event
+
+    - name: Install Dependencies
+      run: composer install
+
+    - name: Run PHPStan 
+      run: vendor/bin/phpstan
+      continue-on-error: true
+
+    - name: Start Marmerine
+      run: php server.php start -d --port=${{env.MARMERINE_PORT}}
+    - name: Run Pest Tests
+      run: vendor/bin/pest --colors=always

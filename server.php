@@ -35,13 +35,7 @@ foreach ( $argv as $arg_option ) {
 
 	if ( isset( $options[$arg_name] ) ) {
 		// Options that expect integers
-		if (
-			$arg_name === 'verbose'
-			|| $arg_name === 'port'
-		) {
-			$arg_value = (int) $arg_value;
-		}
-
+		$arg_value = (int) $arg_value;
 		$options[$arg_name] = $arg_value;
 	}
 }
@@ -68,14 +62,18 @@ $server = new Worker( "Memcached_Text://127.0.0.1:{$options['port']}" );
 $server->count = 4;
 $server->name = 'Marmerine v'.MARMERINE_VERSION;
 
+$server->onWorkerStart = static function() {
+	global $storage;
+	//$storage = new Memcached_Storage( ':memory:' );
+	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
+};
+
 $server->onConnect = static function ( TcpConnection $conn ) {
 	bump_stat( 'total_connections' );
 };
 
 $server->onMessage = static function ( TcpConnection $conn, object $data ) {
-//	$storage = new Memcached_Storage( ':memory:' );
-	$storage = new Memcached_Storage( __DIR__ . '/data/marmerine.db' );
-	$storage->enable( 'WAL' );
+	global $storage;
 
 	bump_stat( "cmd_{$data->command}" );
 
@@ -196,7 +194,7 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 				$conn->send( 'CLIENT_ERROR cannot increment or decrement non-numeric value' );
 			} else {
 				bump_stat( "{$data->command}_hits" );
-				$conn->send( $results );
+				$conn->send( (string) $results );
 			}
 
 			return;
@@ -252,6 +250,10 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 		case 'version':
 			$conn->send( 'VERSION '.MARMERINE_VERSION );
 			return;
+
+		// Command not suported
+		default:
+			$conn->send( 'ERROR' );
 	}
 };
 

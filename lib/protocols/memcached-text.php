@@ -86,7 +86,7 @@ class Memcached_Text {
 		case 'flush_all':
 			$data->delay = 0;
 			if ( !empty( self::$parts[1] ) && is_numeric( self::$parts[1] ) ) {
-				$data->delay = self::$parts[1];
+				$data->delay = (int) self::$parts[1];
 			}
 			break;
 		case 'get':

@@ -1,14 +1,21 @@
 # Changelog
 
 ## ????
-- Bump workerman to 4.1.5
-- Bump phpstan to 1.8.0
+- Bump workerman to 4.1.*
+- Bump phpstan to 1.10.*
+- Bump pest to 2.30.*
+- Add lint checking for PHP files
 - [#3](https://github.com/josephscott/marmerine/pull/3) @joanhey - Call time() instead of microtime() for uptime tracking
 - [#4](https://github.com/josephscott/marmerine/pull/4) @joanhey - Track Marmerine version as a constant
 - [#5](https://github.com/josephscott/marmerine/pull/5) @joanhey - Use static anonymous functions, provides a small memory improvement
 - [#8](https://github.com/josephscott/marmerine/pull/8) @joanhey - Set the workerman name
 - [#7](https://github.com/josephscott/marmerine/pull/7) @joanhey - Remove int casting from verbose()
 - [#9](https://github.com/josephscott/marmerine/pull/9) @joanhey - Test file naming style changes
+- Set a busy timeout for the SQLite database, and always enable WAL
+- [#12](https://github.com/josephscott/marmerine/pull/12) @joanhey - Send ERROR when a command is not supported
+- [#16](https://github.com/josephscott/marmerine/pull/16) @joanhey - Add Github action 
+- [#16](https://github.com/josephscott/marmerine/pull/16) @joanhey - Add ENV support for setting the port of the server to run tests against 
+- [#6](https://github.com/josephscott/marmerine/pull/6) @joanhey - Use Workerman "onWorkerStart" to create the storage object
 
 
 ## 0.0.3 - 2022-05-21

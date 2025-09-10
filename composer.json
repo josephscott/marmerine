@@ -4,11 +4,13 @@
 	"license": "MIT",
 	"require": {
 		"php": ">=8.1.0",
-		"workerman/workerman": "^4.1"
+		"ext-sqlite3": "*",
+		"workerman/workerman": "^5.1"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "1.8.0",
-		"pestphp/pest": "^1.21"
+		"ext-memcached": "*",
+		"phpstan/phpstan": "^1.10",
+		"pestphp/pest": "^2.30"
 	},
 	"suggest": {
 		"ext-event": "Better for PHP workerman performance"
