@@ -73,7 +73,6 @@ $server->onConnect = static function ( TcpConnection $conn ) {
 };
 
 $server->onMessage = static function ( TcpConnection $conn, object $data ) {
-
 	global $storage;
 
 	bump_stat( "cmd_{$data->command}" );
@@ -249,7 +248,7 @@ $server->onMessage = static function ( TcpConnection $conn, object $data ) {
 			return;
 
 		case 'version':
-			$conn->send( MARMERINE_VERSION );
+			$conn->send( 'VERSION '.MARMERINE_VERSION );
 			return;
 
 		// Command not suported
